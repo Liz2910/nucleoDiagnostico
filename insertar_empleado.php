@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Insertar Empleada</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="Styles\style.css">
 </head>
 <body>
   <div class="formulario">

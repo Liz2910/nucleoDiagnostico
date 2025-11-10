@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Menú del Administrador</title>
-  <link rel="stylesheet" href="menu.css">
+  <link rel="stylesheet" href="Styles\menu.css">
 </head>
 <body>
   <div class="card">
@@ -12,6 +12,7 @@
 
     <div id="submenu" class="submenu">
       <button id="insertarBtn">Insertar Empleado</button>
+      <button id="consultarBtn">Consultas Generales</button>
     </div>
 
     <div id="formulario" class="formulario">
@@ -51,6 +52,11 @@
     const submenu = document.getElementById("submenu");
     const insertarBtn = document.getElementById("insertarBtn");
     const formulario = document.getElementById("formulario");
+    const consultarBtn = document.getElementById("consultarBtn");
+
+    consultarBtn.addEventListener("click", () => {
+        window.location.href = "consultar_empleados.php";
+    });
 
     menuBtn.addEventListener("click", () => {
       const activo = menuBtn.classList.toggle("active");

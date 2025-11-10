@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Login - Nucleo Diagnóstico</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="Styles\style.css">
 </head>
 <body>
   <div class="container">
