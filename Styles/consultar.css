@@ -10,22 +10,18 @@ body {
     min-height: 100vh;
 }
 
-/* === Contenedor === */
+/* === Contenedor Principal === */
 .container {
     width: 100%;
     max-width: 1100px;
-    padding: 40px 20px;
-}
-
-/* === Tarjeta Principal === */
-.card {
-    background-color: #fff;
+    background: #ffffff;
+    padding: 40px 30px;
     border-radius: 16px;
-    padding: 30px;
-    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
     animation: fadeIn 0.4s ease;
 }
 
+/* === Título === */
 h2 {
     color: #004a98;
     text-align: center;
@@ -56,6 +52,11 @@ td {
 
 tr:nth-child(even) {
     background-color: #f8f9fb;
+}
+
+tbody tr:hover {
+    background-color: #eaf0fb;
+    transition: background-color 0.2s ease;
 }
 
 td {
@@ -109,5 +110,9 @@ td {
 
     h2 {
         font-size: 20px;
+    }
+
+    .container {
+        padding: 20px;
     }
 }

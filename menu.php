@@ -23,7 +23,7 @@
       <button id="doctoresBtn" class="menu-btn">Menú de Doctores</button>
       <div id="submenuDoctores" class="submenu">
         <a href="insertar_doctor.php">Insertar Doctor</a>
-        <!-- En un futuro: <a href="consultar_doctores.php">Consultas Generales</a> -->
+        <a href="consultar_doctores.php">Consultas Generales</a>
       </div>
     </div>
 
