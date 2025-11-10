@@ -3,71 +3,47 @@
 <head>
   <meta charset="UTF-8">
   <title>Menú del Administrador</title>
-  <link rel="stylesheet" href="Styles\menu.css">
+  <link rel="stylesheet" href="Styles/menu.css">
 </head>
 <body>
   <div class="card">
     <h2>Menú del Administrador</h2>
-    <button id="menuBtn" class="menu-btn">Menú de Empleados</button>
 
-    <div id="submenu" class="submenu">
-      <button id="insertarBtn">Insertar Empleado</button>
-      <button id="consultarBtn">Consultas Generales</button>
+    <!-- === MENÚ EMPLEADOS === -->
+    <div class="menu-section">
+      <button id="empleadosBtn" class="menu-btn">Menú de Empleados</button>
+      <div id="submenuEmpleados" class="submenu">
+        <a href="insertar_empleado.php">Insertar Empleado</a>
+        <a href="consultar_empleados.php">Consultas Generales</a>
+      </div>
     </div>
 
-    <div id="formulario" class="formulario">
-      <h3 class="titulo-form">Insertar Nueva Empleada</h3>
-      <form action="insertar_empleado_action.php" method="post">
-        <label>Nombre completo:</label>
-        <input type="text" name="nombre" placeholder="Nombre completo" required>
-
-        <label>Dirección:</label>
-        <input type="text" name="direccion" placeholder="Dirección" required>
-
-        <label>Teléfono:</label>
-        <input type="text" name="telefono" placeholder="Teléfono" required>
-
-        <label>Sexo (M/F):</label>
-        <input type="text" name="sexo" maxlength="1" placeholder="M o F" required>
-
-        <label>Sueldo:</label>
-        <input type="number" name="sueldo" step="0.01" placeholder="Sueldo" required>
-
-        <label>Turno:</label>
-        <input type="text" name="turno" placeholder="Turno" required>
-
-        <label>Fecha de nacimiento:</label>
-        <input type="date" name="fecha_nacimiento" required>
-
-        <label>Contraseña:</label>
-        <input type="password" name="contrasena" placeholder="Contraseña" required>
-
-        <button type="submit">Guardar Empleada</button>
-      </form>
+    <!-- === MENÚ DOCTORES === -->
+    <div class="menu-section">
+      <button id="doctoresBtn" class="menu-btn">Menú de Doctores</button>
+      <div id="submenuDoctores" class="submenu">
+        <a href="insertar_doctor.php">Insertar Doctor</a>
+        <!-- En un futuro: <a href="consultar_doctores.php">Consultas Generales</a> -->
+      </div>
     </div>
+
   </div>
 
   <script>
-    const menuBtn = document.getElementById("menuBtn");
-    const submenu = document.getElementById("submenu");
-    const insertarBtn = document.getElementById("insertarBtn");
-    const formulario = document.getElementById("formulario");
-    const consultarBtn = document.getElementById("consultarBtn");
+    const empleadosBtn = document.getElementById("empleadosBtn");
+    const doctoresBtn = document.getElementById("doctoresBtn");
+    const submenuEmpleados = document.getElementById("submenuEmpleados");
+    const submenuDoctores = document.getElementById("submenuDoctores");
 
-    consultarBtn.addEventListener("click", () => {
-        window.location.href = "consultar_empleados.php";
+    // Mostrar/ocultar menús independientemente
+    empleadosBtn.addEventListener("click", () => {
+      submenuEmpleados.style.display =
+        submenuEmpleados.style.display === "flex" ? "none" : "flex";
     });
 
-    menuBtn.addEventListener("click", () => {
-      const activo = menuBtn.classList.toggle("active");
-      submenu.style.display = activo ? "flex" : "none";
-    });
-
-    insertarBtn.addEventListener("click", () => {
-      formulario.style.display =
-        (formulario.style.display === "none" || formulario.style.display === "")
-        ? "block"
-        : "none";
+    doctoresBtn.addEventListener("click", () => {
+      submenuDoctores.style.display =
+        submenuDoctores.style.display === "flex" ? "none" : "flex";
     });
   </script>
 </body>
