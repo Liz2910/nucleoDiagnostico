@@ -25,8 +25,6 @@ $resultado = pg_query($conexion, $query);
           <th>Especialidad</th>
           <th>Fecha de Nacimiento</th>
           <th>Sexo</th>
-          <th>Sueldo</th>
-          <th>Turno</th>
         </tr>
       </thead>
       <tbody>
@@ -41,8 +39,6 @@ $resultado = pg_query($conexion, $query);
             echo "<td>" . htmlspecialchars($row['especialidad']) . "</td>";
             echo "<td>" . htmlspecialchars($row['fecha_nac']) . "</td>";
             echo "<td>" . htmlspecialchars($row['sexo']) . "</td>";
-            echo "<td>$" . number_format($row['sueldo'], 2) . "</td>";
-            echo "<td>" . htmlspecialchars($row['turno']) . "</td>";
             echo "</tr>";
           }
         } else {
