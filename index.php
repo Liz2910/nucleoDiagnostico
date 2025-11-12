@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- login del administrador -->
 <html lang="es">
 <head>
   <meta charset="UTF-8">

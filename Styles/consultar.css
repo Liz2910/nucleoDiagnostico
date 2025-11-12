@@ -43,7 +43,6 @@ thead {
     color: white;
 }
 
-/* Centramos los encabezados sin afectar las filas */
 th {
     text-align: center;
     padding: 12px 15px;
