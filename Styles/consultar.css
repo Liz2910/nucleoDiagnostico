@@ -43,11 +43,19 @@ thead {
     color: white;
 }
 
-th,
+/* Centramos los encabezados sin afectar las filas */
+th {
+    text-align: center;
+    padding: 12px 15px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
 td {
     text-align: left;
     padding: 12px 15px;
     font-size: 15px;
+    color: #333;
 }
 
 tr:nth-child(even) {
@@ -57,10 +65,6 @@ tr:nth-child(even) {
 tbody tr:hover {
     background-color: #eaf0fb;
     transition: background-color 0.2s ease;
-}
-
-td {
-    color: #333;
 }
 
 /* === Botón de regreso === */
@@ -77,6 +81,7 @@ td {
     text-decoration: none;
     font-weight: 500;
     transition: all 0.3s ease;
+    display: inline-block;
 }
 
 .back-btn:hover {

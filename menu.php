@@ -23,7 +23,7 @@ if (!isset($_SESSION['usuario'])) {
 <body>
 
 <!-- muestra el usuario y permite salir-->
-  <div class="barra-superior">
+  <div class="header">
     <span>Bienvenido, <strong><?php echo htmlspecialchars($_SESSION['usuario']); ?></strong></span>
     <form action="logout.php" method="post">
       <button type="submit" class="logout-btn">Cerrar sesión</button>
