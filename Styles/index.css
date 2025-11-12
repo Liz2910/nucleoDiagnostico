@@ -1,0 +1,91 @@
+/* === Estructura general === */
+body {
+    font-family: "Segoe UI", sans-serif;
+    background-color: #f2f5fa;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* === Wrapper para centrar vertical y horizontalmente === */
+.login-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+/* === Caja blanca del login === */
+.login-box {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.15);
+    padding: 40px 50px;
+    width: 380px;
+    text-align: left;
+}
+
+/* === Título === */
+.login-box h2 {
+    text-align: center;
+    color: #004a98;
+    font-weight: 700;
+    font-size: 2rem;
+    margin-bottom: 25px;
+}
+
+/* === Etiquetas === */
+label {
+    display: block;
+    color: #222;
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+}
+
+/* === Campos === */
+input {
+    width: 100%;
+    box-sizing: border-box;
+    height: 44px;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 0.90rem;
+    margin-bottom: 18px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus {
+    border-color: #004a98;
+    box-shadow: 0 0 6px rgba(0, 74, 152, 0.25);
+}
+
+/* === Botón === */
+button {
+    width: 100%;
+    background-color: #004a98;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 800;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #1b64c7;
+}
+
+/* === Error === */
+.error {
+    color: #d9534f;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-top: 10px;
+}

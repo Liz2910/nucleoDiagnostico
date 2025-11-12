@@ -16,11 +16,15 @@ if (!isset($_SESSION['usuario'])) {
 <body>
   <!-- Barra superior -->
   <div class="barra-superior">
-    <span>Bienvenido, <strong><?php echo htmlspecialchars($_SESSION['usuario']); ?></strong></span>
+    <div class="info-usuario">
+      <span>Hola, <strong><?php echo htmlspecialchars($_SESSION['usuario']); ?></strong></span>
+      <p class="codigo">Código: <?php echo htmlspecialchars($_SESSION['codigo']); ?></p>
+    </div>
     <form action="logout.php" method="post">
       <button type="submit" class="logout-btn">Cerrar sesión</button>
     </form>
   </div>
+
 
   <!-- Contenedor principal -->
   <div class="card">
@@ -39,6 +43,12 @@ if (!isset($_SESSION['usuario'])) {
       <a href="insertar_doctor.php">Insertar Doctor</a>
       <a href="consultar_doctores.php">Consultas Generales</a>
     </div>
+
+    <!-- Menú Pacientes -->
+    <button class="menu-btn" id="pacientesBtn">Menú Pacientes</button>
+    <div class="submenu" id="pacientesSubmenu">
+      <a href="insertar_paciente.php">Insertar Paciente</a>
+    </div>
   </div>
 
   <!-- Script para abrir/cerrar submenús -->
@@ -48,6 +58,13 @@ if (!isset($_SESSION['usuario'])) {
       const doctoresBtn = document.getElementById("doctoresBtn");
       const empleadosSubmenu = document.getElementById("empleadosSubmenu");
       const doctoresSubmenu = document.getElementById("doctoresSubmenu");
+      const pacientesBtn = document.getElementById("pacientesBtn");
+      const pacientesSubmenu = document.getElementById("pacientesSubmenu");
+
+      pacientesBtn.addEventListener("click", () => {
+        pacientesSubmenu.style.display =
+          pacientesSubmenu.style.display === "flex" ? "none" : "flex";
+      });
 
       empleadosBtn.addEventListener("click", () => {
         empleadosSubmenu.style.display =

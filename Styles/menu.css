@@ -110,6 +110,19 @@ button.menu-btn.active {
     font-size: 1.1rem;
 }
 
+.info-usuario {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    color: #004a98;
+}
+
+.info-usuario .codigo {
+    font-size: 0.9rem;
+    color: rgba(0, 0, 0, 0.6);
+    margin: 0;
+}
+
 .logout-btn {
     background-color: #d9534f;
     color: white;
