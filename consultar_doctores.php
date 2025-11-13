@@ -10,7 +10,7 @@ $resultado = pg_query($conexion, $query);
 <head>
   <meta charset="UTF-8">
   <title>Consulta General de Doctores</title>
-  <link rel="stylesheet" href="Styles/consultar.css">
+  <link rel="stylesheet" href="Styles/cons.css">
 </head>
 <body>
   <div class="container">

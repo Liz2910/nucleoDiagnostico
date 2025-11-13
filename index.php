@@ -1,72 +1,152 @@
-<?php
-error_reporting(E_ALL & ~E_WARNING & ~E_NOTICE);
-ini_set('display_errors', 0);
-session_start();
-
-require_once 'conecta.php';  // Debe definir $conexion = pg_connect(...)
-
-$error = ''; // ← en GET queda vacío y NO se muestra nada
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // 1) Leer y sanear
-    $codigo = isset($_POST['codigo']) ? (int)$_POST['codigo'] : 0;
-    $contrasena = isset($_POST['contrasena']) ? trim($_POST['contrasena']) : '';
-
-    // 2) Validación mínima
-    if ($codigo === 0 || $contrasena === '') {
-        $error = 'Por favor ingresa tu usuario y contraseña.';
-    } else {
-        // 3) Buscar usuario por codigo (serial integer)
-        $sql  = 'SELECT codigo, nombre, contrasena FROM empleados WHERE codigo = $1';
-        $res  = pg_query_params($conexion, $sql, [$codigo]);
-
-        if ($res && pg_num_rows($res) === 1) {
-            $row = pg_fetch_assoc($res);
-
-            // 4) Comparar contraseña (si actualmente la guardas en texto plano)
-            //    Si más adelante usas password_hash(), cámbialo por password_verify()
-            if (trim((string)$row['contrasena']) === $contrasena) {
-                $_SESSION['codigo'] = $row['codigo'];
-                $_SESSION['nombre'] = $row['nombre'];
-                header('Location: dashboard.php');
-                exit;
-            } else {
-                $error = 'Contraseña incorrecta.';
-            }
-        } else {
-            $error = 'Usuario no encontrado.';
-        }
-    }
-}
-?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Iniciar Sesión</title>
-  <link rel="stylesheet" href="Styles/index.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Nucleo Diagnóstico</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS Externo -->
+    <link rel="stylesheet" href="Styles/index.css">
 </head>
 <body>
-  <div class="login-wrapper">
-    <div class="login-box">
-      <h2>Iniciar Sesión</h2>
+  <div class="container">
+    <div class="login-card">
+      <div class="logo-container">
+        <div class="logo-icon">
+          <i class="fas fa-hospital-user"></i>
+        </div>
+        <h2>Nucleo Diagnóstico</h2>
+        <p class="subtitle">Bienvenido al sistema de gestión</p>
+      </div>
 
-      <form method="post" action="">
-        <label for="codigo">Código:</label>
-        <input id="codigo" name="codigo" type="text"
-               value="<?= htmlspecialchars($_POST['codigo'] ?? '') ?>" required>
+      <!-- Alerta de error -->
+      <div class="alert alert-error" id="errorAlert">
+        <i class="fas fa-exclamation-circle"></i>
+        <span id="errorMessage"></span>
+      </div>
 
-        <label for="contrasena">Contraseña:</label>
-        <input id="contrasena" name="contrasena" type="password" required>
+      <!-- Alerta de éxito -->
+      <div class="alert alert-success" id="successAlert">
+        <i class="fas fa-check-circle"></i>
+        <span id="successMessage"></span>
+      </div>
 
-        <button type="submit">Entrar</button>
+      <!-- FORMULARIO -->
+      <form action="./Actions/validate_login.php" method="post" id="loginForm" novalidate>
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-id-badge"></i>
+            Código de Usuario
+          </label>
+          <div class="input-wrapper">
+            <input 
+              type="text" 
+              name="usuario" 
+              id="usuario"
+              class="form-control" 
+              placeholder="Ingresa tu código (ej: 1, 2, 3...)"
+              required
+              autocomplete="username"
+              pattern="[0-9]+"
+              title="Ingresa solo números"
+            >
+            <i class="fas fa-id-badge input-icon"></i>
+          </div>
+        </div>
 
-        <?php if ($error !== ''): ?>
-          <p class="error"><?= htmlspecialchars($error) ?></p>
-        <?php endif; ?>
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-lock"></i>
+            Contraseña
+          </label>
+          <div class="input-wrapper">
+            <input 
+              type="password" 
+              name="contrasena" 
+              id="contrasena"
+              class="form-control" 
+              placeholder="Ingresa tu contraseña"
+              required
+              autocomplete="current-password"
+            >
+            <i class="fas fa-lock input-icon"></i>
+            <i class="fas fa-eye password-toggle" id="togglePassword"></i>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-login" id="loginBtn">
+          <span>Iniciar Sesión</span>
+          <i class="fas fa-arrow-right"></i>
+          <div class="spinner"></div>
+        </button>
       </form>
+
     </div>
   </div>
+  <script>
+    // Toggle contraseña
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('contrasena');
+    togglePassword.addEventListener('click', () => {
+      const type = passwordInput.type === "password" ? "text" : "password";
+      passwordInput.type = type;
+      togglePassword.classList.toggle('fa-eye');
+      togglePassword.classList.toggle('fa-eye-slash');
+    });
+
+    // Elementos
+    const loginForm = document.getElementById('loginForm');
+    const usuarioInput = document.getElementById('usuario');
+    const loginBtn = document.getElementById('loginBtn');
+    const errorAlert = document.getElementById('errorAlert');
+    const errorMessage = document.getElementById('errorMessage');
+    const successAlert = document.getElementById('successAlert');
+
+    // Mostrar error
+    function showError(message) {
+      errorMessage.textContent = message;
+      errorAlert.classList.add('show');
+      successAlert.classList.remove('show');
+    }
+
+    // Validaciones
+    loginForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const usuario = usuarioInput.value.trim();
+      const contrasena = passwordInput.value.trim();
+
+      if (!usuario || !contrasena) {
+        showError("Por favor, completa todos los campos");
+        return;
+      }
+
+      if (contrasena.length < 1) {
+        showError("Ingresa una contraseña válida");
+        return;
+      }
+
+      loginBtn.classList.add('loading');
+      loginBtn.disabled = true;
+
+      setTimeout(() => {
+        loginForm.submit();
+      }, 400);
+    });
+
+    // Errores del servidor
+    window.addEventListener("DOMContentLoaded", () => {
+      const p = new URLSearchParams(window.location.search);
+      const error = p.get("error");
+
+      if (error === "invalid") showError("Usuario o contraseña incorrectos.");
+      if (error === "empty") showError("Completa todos los campos.");
+      if (error === "db") showError("Error de conexión.");
+      if (error === "nouser") showError("El usuario no existe.");
+    });
+  </script>
 </body>
 </html>

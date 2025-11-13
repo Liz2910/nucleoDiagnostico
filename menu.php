@@ -1,81 +1,165 @@
 <?php
+// Iniciar sesión
 session_start();
-if (!isset($_SESSION['usuario'])) {
-  header("Location: index.php");
-  exit();
-}
-?>
 
+// Verificar si el usuario está logueado
+if (!isset($_SESSION['usuario']) || !isset($_SESSION['codigo'])) {
+    header("Location: index.php");
+    exit();
+}
+
+// Obtener datos del usuario desde la sesión
+$usuario_nombre_completo = $_SESSION['usuario'];
+$usuario_codigo = $_SESSION['codigo'];
+
+// Extraer solo el primer nombre (hasta el primer espacio)
+$primer_nombre = explode(' ', $usuario_nombre_completo)[0];
+
+// Incluir conexión a la base de datos
+include("conecta.php");
+
+// Consultar total de empleados
+$query_empleados = "SELECT COUNT(*) as total FROM empleado";
+$result_empleados = pg_query($conexion, $query_empleados);
+$total_empleados = pg_fetch_assoc($result_empleados)['total'];
+
+// Consultar total de doctores
+$query_doctores = "SELECT COUNT(*) as total FROM doctor";
+$result_doctores = pg_query($conexion, $query_doctores);
+$total_doctores = pg_fetch_assoc($result_doctores)['total'];
+
+// Consultar total de pacientes
+$query_pacientes = "SELECT COUNT(*) as total FROM paciente";
+$result_pacientes = pg_query($conexion, $query_pacientes);
+$total_pacientes = pg_fetch_assoc($result_pacientes)['total'];
+
+// Cerrar conexión
+pg_close($conexion);
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Menú del Administrador</title>
-  <link rel="stylesheet" href="Styles/menu.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú Administrador - Nucleo Diagnóstico</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="Styles/menu.css">
 </head>
 <body>
-  <!-- Barra superior -->
-  <div class="barra-superior">
-    <div class="info-usuario">
-      <span>Hola, <strong><?php echo htmlspecialchars($_SESSION['usuario']); ?></strong></span>
-      <p class="codigo">Código: <?php echo htmlspecialchars($_SESSION['codigo']); ?></p>
+  <!-- Header superior -->
+  <div class="top-header">
+    <div class="user-info">
+      <div class="user-avatar">
+        <i class="fas fa-user-shield"></i>
+      </div>
+      <div class="user-details">
+        <h3>Bienvenida, <?php echo htmlspecialchars($primer_nombre); ?></h3>
+        <p><i class="fas fa-id-badge"></i> Código: <?php echo htmlspecialchars($usuario_codigo); ?></p>
+      </div>
     </div>
     <form action="logout.php" method="post">
-      <button type="submit" class="logout-btn">Cerrar sesión</button>
+      <button type="submit" class="logout-btn">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Cerrar Sesión</span>
+      </button>
     </form>
   </div>
 
-
-  <!-- Contenedor principal -->
-  <div class="card">
-    <h2>MENU DEL ADMINISTRADOR</h2>
-
-    <!-- Menú Empleados -->
-    <button class="menu-btn" id="empleadosBtn">Menú Empleados</button>
-    <div class="submenu" id="empleadosSubmenu">
-      <a href="insertar_empleado.php">Insertar Empleado</a>
-      <a href="consultar_empleados.php">Consultas Generales</a>
+  <div class="main-container">
+    <!-- Tarjeta de bienvenida -->
+    <div class="welcome-card">
+      <h1>
+        <i class="fas fa-hospital"></i>
+        Panel de Administración
+      </h1>
+      <p>Gestiona empleados, doctores y pacientes desde un solo lugar</p>
     </div>
 
-    <!-- Menú Doctores -->
-    <button class="menu-btn" id="doctoresBtn">Menú Doctores</button>
-    <div class="submenu" id="doctoresSubmenu">
-      <a href="insertar_doctor.php">Insertar Doctor</a>
-      <a href="consultar_doctores.php">Consultas Generales</a>
+    <!-- Grid de menús -->
+    <div class="menu-grid">
+      <!-- Menú Empleados -->
+      <div class="menu-section empleados">
+        <div class="menu-header">
+          <div class="menu-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <h2>Empleados</h2>
+        </div>
+        <div class="menu-options">
+          <a href="insertar_empleado.php" class="menu-link">
+            <i class="fas fa-user-plus"></i>
+            <span>Registrar Nuevo Empleado</span>
+          </a>
+          <a href="consultar_empleados.php" class="menu-link">
+            <i class="fas fa-list"></i>
+            <span>Ver Lista de Empleados</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Menú Doctores -->
+      <div class="menu-section doctores">
+        <div class="menu-header">
+          <div class="menu-icon">
+            <i class="fas fa-user-md"></i>
+          </div>
+          <h2>Doctores</h2>
+        </div>
+        <div class="menu-options">
+          <a href="insertar_doctor.php" class="menu-link">
+            <i class="fas fa-user-plus"></i>
+            <span>Registrar Nuevo Doctor</span>
+          </a>
+          <a href="consultar_doctores.php" class="menu-link">
+            <i class="fas fa-list"></i>
+            <span>Ver Lista de Doctores</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Menú Pacientes -->
+      <div class="menu-section pacientes">
+        <div class="menu-header">
+          <div class="menu-icon">
+            <i class="fas fa-procedures"></i>
+          </div>
+          <h2>Pacientes</h2>
+        </div>
+        <div class="menu-options">
+          <a href="insertar_paciente.php" class="menu-link">
+            <i class="fas fa-user-plus"></i>
+            <span>Registrar Nuevo Paciente</span>
+          </a>
+          <a href="consultar_pacientes.php" class="menu-link">
+            <i class="fas fa-list"></i>
+            <span>Ver Lista de Pacientes</span>
+          </a>
+          <!--<a href="#" class="menu-link">
+            <i class="fas fa-calendar-check"></i>
+            <span>Gestionar Citas</span>
+          </a>-->
+        </div>
+      </div>
     </div>
 
-    <!-- Menú Pacientes -->
-    <button class="menu-btn" id="pacientesBtn">Menú Pacientes</button>
-    <div class="submenu" id="pacientesSubmenu">
-      <a href="insertar_paciente.php">Insertar Paciente</a>
+    <!-- Tarjetas de estadísticas con consultas dinámicas -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <i class="fas fa-users stat-icon"></i>
+        <h3><?php echo $total_empleados; ?></h3>
+        <p>Total Empleados</p>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-user-md stat-icon"></i>
+        <h3><?php echo $total_doctores; ?></h3>
+        <p>Doctores Activos</p>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-procedures stat-icon"></i>
+        <h3><?php echo $total_pacientes; ?></h3>
+        <p>Pacientes Registrados</p>
+      </div>
     </div>
   </div>
-
-  <!-- Script para abrir/cerrar submenús -->
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const empleadosBtn = document.getElementById("empleadosBtn");
-      const doctoresBtn = document.getElementById("doctoresBtn");
-      const empleadosSubmenu = document.getElementById("empleadosSubmenu");
-      const doctoresSubmenu = document.getElementById("doctoresSubmenu");
-      const pacientesBtn = document.getElementById("pacientesBtn");
-      const pacientesSubmenu = document.getElementById("pacientesSubmenu");
-
-      pacientesBtn.addEventListener("click", () => {
-        pacientesSubmenu.style.display =
-          pacientesSubmenu.style.display === "flex" ? "none" : "flex";
-      });
-
-      empleadosBtn.addEventListener("click", () => {
-        empleadosSubmenu.style.display =
-          empleadosSubmenu.style.display === "flex" ? "none" : "flex";
-      });
-
-      doctoresBtn.addEventListener("click", () => {
-        doctoresSubmenu.style.display =
-          doctoresSubmenu.style.display === "flex" ? "none" : "flex";
-      });
-    });
-  </script>
 </body>
 </html>

@@ -11,7 +11,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['codigo'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Registrar Nuevo Doctor - Nucleo Diagnóstico</title>
+  <title>Registrar Nuevo Paciente - Nucleo Diagnóstico</title>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="Styles/form.css">
@@ -21,11 +21,11 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['codigo'])) {
     <div class="form-card">
       <!-- Encabezado del formulario -->
       <div class="form-header">
-        <div class="header-icon">
-          <i class="fas fa-user-md"></i>
+        <div class="header-icon" style="background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);">
+          <i class="fas fa-procedures"></i>
         </div>
-        <h2>Registrar Nuevo Doctor</h2>
-        <p class="subtitle">Complete la información del doctor</p>
+        <h2>Registrar Nuevo Paciente</h2>
+        <p class="subtitle">Complete la información del paciente</p>
       </div>
 
       <!-- Tarjeta de información -->
@@ -35,7 +35,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['codigo'])) {
       </div>
 
       <!-- Formulario -->
-      <form action="acciones/insertar_doctor_action.php" method="post">
+      <form action="Actions/insertar_paciente_action.php" method="post">
         <div class="form-grid">
           <!-- Nombre completo -->
           <div class="form-group full-width">
@@ -46,7 +46,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['codigo'])) {
             </label>
             <div class="input-wrapper">
               <i class="fas fa-user input-icon"></i>
-              <input type="text" name="nombre" class="form-control" placeholder="Ej: Dr. Juan Pérez González" required>
+              <input type="text" name="nombre" class="form-control" placeholder="Ej: María López García" required>
             </div>
           </div>
 
@@ -59,7 +59,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['codigo'])) {
             </label>
             <div class="input-wrapper">
               <i class="fas fa-map-marker-alt input-icon"></i>
-              <input type="text" name="direccion" class="form-control" placeholder="Ej: Calle Principal #123, Col. Centro" required>
+              <input type="text" name="direccion" class="form-control" placeholder="Ej: Av. Revolución #456, Col. Moderna" required>
             </div>
           </div>
 
@@ -78,19 +78,6 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['codigo'])) {
               <i class="fas fa-info-circle"></i>
               10 dígitos sin espacios
             </small>
-          </div>
-
-          <!-- Especialidad -->
-          <div class="form-group">
-            <label class="form-label">
-              <i class="fas fa-stethoscope"></i>
-              Especialidad
-              <span class="required">*</span>
-            </label>
-            <div class="input-wrapper">
-              <i class="fas fa-stethoscope input-icon"></i>
-              <input type="text" name="especialidad" class="form-control" placeholder="Ej: Cardiología" required>
-            </div>
           </div>
 
           <!-- Fecha de nacimiento -->
@@ -123,29 +110,46 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['codigo'])) {
             </div>
           </div>
 
-          <!-- Contraseña -->
-          <div class="form-group full-width">
+          <!-- Edad -->
+          <div class="form-group">
             <label class="form-label">
-              <i class="fas fa-lock"></i>
-              Contraseña
+              <i class="fas fa-user-clock"></i>
+              Edad
               <span class="required">*</span>
             </label>
             <div class="input-wrapper">
-              <i class="fas fa-lock input-icon"></i>
-              <input type="password" name="contrasena" class="form-control" placeholder="Ingrese una contraseña segura" minlength="6" required>
+              <i class="fas fa-user-clock input-icon"></i>
+              <input type="number" name="edad" class="form-control" placeholder="Ej: 35" min="0" max="120" required>
             </div>
             <small class="form-help">
               <i class="fas fa-info-circle"></i>
-              Mínimo 6 caracteres
+              Edad en años
+            </small>
+          </div>
+
+          <!-- Estatura -->
+          <div class="form-group">
+            <label class="form-label">
+              <i class="fas fa-ruler-vertical"></i>
+              Estatura (metros)
+              <span class="required">*</span>
+            </label>
+            <div class="input-wrapper">
+              <i class="fas fa-ruler-vertical input-icon"></i>
+              <input type="number" name="estatura" class="form-control" placeholder="Ej: 1.75" step="0.01" min="0.50" max="2.50" required>
+            </div>
+            <small class="form-help">
+              <i class="fas fa-info-circle"></i>
+              Estatura en metros (ej: 1.75)
             </small>
           </div>
         </div>
 
         <!-- Botones -->
         <div class="button-group">
-          <button type="submit" class="btn btn-primary">
+          <button type="submit" class="btn btn-primary" style="background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%); box-shadow: 0 4px 16px rgba(46, 204, 113, 0.3);">
             <i class="fas fa-save"></i>
-            <span>Guardar Doctor</span>
+            <span>Guardar Paciente</span>
           </button>
           <a href="menu.php" class="btn btn-secondary">
             <i class="fas fa-arrow-left"></i>
