@@ -6,7 +6,6 @@
     <title>Registrar Empleado - Nucleo Diagnóstico</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- CSS Externo -->
     <link rel="stylesheet" href="Styles/form.css">
 </head>
 <body>
@@ -210,7 +209,6 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['codigo'])) {
     <script>
         // Validación y efectos del formulario
         document.getElementById('empleadoForm').addEventListener('submit', function(e) {
-            // Aquí puedes agregar validaciones adicionales si lo necesitas
         });
 
         // Animación en los inputs al escribir

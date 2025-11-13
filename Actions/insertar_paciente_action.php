@@ -7,7 +7,6 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['codigo'])) {
 
 include("../conecta.php");
 
-// Recibir datos del formulario
 $nombre = pg_escape_string($conexion, $_POST['nombre']);
 $direccion = pg_escape_string($conexion, $_POST['direccion']);
 $telefono = pg_escape_string($conexion, $_POST['telefono']);
@@ -16,7 +15,6 @@ $sexo = $_POST['sexo'];
 $edad = intval($_POST['edad']);
 $estatura = floatval($_POST['estatura']);
 
-// Query para insertar en la tabla paciente
 $query = "INSERT INTO paciente (nombre, direccion, telefono, fecha_nac, sexo, edad, estatura)
 VALUES ('$nombre', '$direccion', '$telefono', '$fecha_nac', '$sexo', $edad, $estatura)";
 

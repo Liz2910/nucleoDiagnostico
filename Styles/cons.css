@@ -1,4 +1,4 @@
-/* === Estilo General === */
+/* Estilo General */
 * {
     margin: 0;
     padding: 0;
@@ -21,7 +21,7 @@ body {
     min-height: 100vh;
 }
 
-/* === Contenedor Principal === */
+/* Contenedor Principal */
 .container {
     width: 100%;
     max-width: 1200px;
@@ -45,7 +45,7 @@ body {
     }
 }
 
-/* === Título === */
+/* Título */
 h2 {
     color: #004a98;
     text-align: center;
@@ -64,7 +64,7 @@ h2::before {
     font-size: 2rem;
 }
 
-/* === Wrapper de Tabla === */
+/* Wrapper de Tabla */
 .table-wrapper {
     overflow-x: auto;
     border-radius: 16px;
@@ -72,7 +72,7 @@ h2::before {
     margin-bottom: 30px;
 }
 
-/* === Tabla === */
+/* Tabla */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -123,13 +123,13 @@ tbody tr:hover {
     box-shadow: 0 2px 8px rgba(52, 152, 219, 0.15);
 }
 
-/* === Estilos especiales para celdas === */
+/* Estilos especiales para celdas */
 td:first-child {
     font-weight: 600;
     color: #3498db;
 }
 
-/* === Mensaje de tabla vacía === */
+/* Mensaje de tabla vacía */
 tbody tr td[colspan] {
     text-align: center;
     color: #6c757d;
@@ -137,7 +137,7 @@ tbody tr td[colspan] {
     padding: 40px 20px;
 }
 
-/* === Botón de regreso === */
+/* Botón de regreso */
 .btn-container {
     text-align: center;
     margin-top: 30px;
@@ -193,7 +193,7 @@ tbody tr td[colspan] {
     height: 300px;
 }
 
-/* === Badge/Etiqueta de info === */
+/* Etiqueta de info */
 .info-badge {
     display: inline-block;
     padding: 6px 12px;
@@ -205,7 +205,7 @@ tbody tr td[colspan] {
     margin-bottom: 20px;
 }
 
-/* === Responsividad === */
+/* Responsividad */
 @media (max-width: 1024px) {
     .container {
         padding: 30px 20px;

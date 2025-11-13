@@ -1,40 +1,33 @@
 <?php
-// Iniciar sesión
 session_start();
 
-// Verificar si el usuario está logueado
 if (!isset($_SESSION['usuario']) || !isset($_SESSION['codigo'])) {
     header("Location: index.php");
     exit();
 }
 
-// Obtener datos del usuario desde la sesión
 $usuario_nombre_completo = $_SESSION['usuario'];
 $usuario_codigo = $_SESSION['codigo'];
 
 // Extraer solo el primer nombre (hasta el primer espacio)
 $primer_nombre = explode(' ', $usuario_nombre_completo)[0];
 
-// Incluir conexión a la base de datos
 include("conecta.php");
 
-// Consultar total de empleados
 $query_empleados = "SELECT COUNT(*) as total FROM empleado";
 $result_empleados = pg_query($conexion, $query_empleados);
 $total_empleados = pg_fetch_assoc($result_empleados)['total'];
 
-// Consultar total de doctores
 $query_doctores = "SELECT COUNT(*) as total FROM doctor";
 $result_doctores = pg_query($conexion, $query_doctores);
 $total_doctores = pg_fetch_assoc($result_doctores)['total'];
 
-// Consultar total de pacientes
 $query_pacientes = "SELECT COUNT(*) as total FROM paciente";
 $result_pacientes = pg_query($conexion, $query_pacientes);
 $total_pacientes = pg_fetch_assoc($result_pacientes)['total'];
 
-// Cerrar conexión
 pg_close($conexion);
+
 ?>
 <!DOCTYPE html>
 <html lang="es">

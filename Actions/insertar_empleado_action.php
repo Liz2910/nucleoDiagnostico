@@ -7,7 +7,6 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['codigo'])) {
 
 include("../conecta.php");
 
-// Recibir datos del formulario
 $nombre = pg_escape_string($conexion, $_POST['nombre']);
 $direccion = pg_escape_string($conexion, $_POST['direccion']);
 $telefono = pg_escape_string($conexion, $_POST['telefono']);
@@ -17,7 +16,6 @@ $sueldo = floatval($_POST['sueldo']);
 $turno = pg_escape_string($conexion, $_POST['turno']);
 $contrasena = pg_escape_string($conexion, $_POST['contrasena']);
 
-// Query para insertar en la tabla empleado
 $query = "INSERT INTO empleado (nombre, direccion, telefono, fecha_nac, sexo, sueldo, turno, contrasena)
 VALUES ('$nombre', '$direccion', '$telefono', '$fecha_nac', '$sexo', $sueldo, '$turno', '$contrasena')";
 

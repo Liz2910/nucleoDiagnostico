@@ -1,8 +1,4 @@
-/* ==========================================
-   ESTILOS PARA PÁGINAS DE RESULTADO/CONFIRMACIÓN
-   ========================================== */
-
-/* === Contenedor de resultado === */
+/* Contenedor de resultado */
 .result-container {
     max-width: 650px;
     margin: 0 auto;
@@ -13,7 +9,7 @@
     padding: 50px 40px;
 }
 
-/* === Iconos de resultado === */
+/* Iconos de resultado */
 .success-icon {
     width: 90px;
     height: 90px;
@@ -60,7 +56,7 @@
     color: white;
 }
 
-/* === Animación de entrada === */
+/* Animación de entrada */
 @keyframes scaleIn {
     from {
         transform: scale(0) rotate(-180deg);
@@ -73,7 +69,7 @@
     }
 }
 
-/* === Títulos y mensajes === */
+/* Títulos y mensajes */
 .result-title {
     color: #333;
     font-size: 2rem;
@@ -102,7 +98,7 @@
     }
 }
 
-/* === Detalles de error === */
+/* Detalles de error */
 .error-detail {
     background: linear-gradient(135deg, #fff3cd 0%, #ffe8a1 100%);
     border-left: 5px solid #ffc107;
@@ -144,7 +140,7 @@
     }
 }
 
-/* === Detalles de éxito === */
+/* Detalles de éxito */
 .success-details {
     background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
     border-left: 5px solid #28a745;
@@ -198,7 +194,7 @@
     }
 }
 
-/* === Detalles informativos === */
+/* Detalles informativos */
 .info-details {
     background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
     border-left: 5px solid #17a2b8;
@@ -223,14 +219,14 @@
     width: 22px;
 }
 
-/* === Separador === */
+/* Separador */
 .result-divider {
     height: 2px;
     background: linear-gradient(to right, transparent, #e0e0e0, transparent);
     margin: 30px 0;
 }
 
-/* === Responsividad === */
+/* Responsividad */
 @media (max-width: 768px) {
     .result-card {
         padding: 40px 25px;
