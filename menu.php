@@ -36,7 +36,7 @@ pg_close($conexion);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menú Administrador - Nucleo Diagnóstico</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="Styles/menu.css">
+    <link rel="stylesheet" href="Styles/men.css">
 </head>
 <body>
   <!-- Header superior -->
@@ -127,13 +127,29 @@ pg_close($conexion);
             <i class="fas fa-list"></i>
             <span>Ver Lista de Pacientes</span>
           </a>
-          <!--<a href="#" class="menu-link">
-            <i class="fas fa-calendar-check"></i>
-            <span>Gestionar Citas</span>
-          </a>-->
         </div>
       </div>
     </div>
+
+    <!-- Menú Citas -->
+      <div class="menu-section citas">
+        <div class="menu-header">
+          <div class="menu-icon">
+            <i class="fas fa-calendar-check"></i>
+          </div>
+          <h2>Citas Médicas</h2>
+        </div>
+        <div class="menu-options">
+          <a href="insertar_cita.php" class="menu-link">
+            <i class="fas fa-calendar-plus"></i>
+            <span>Agendar Nueva Cita</span>
+          </a>
+          <a href="consultar_citas.php" class="menu-link">
+            <i class="fas fa-list"></i>
+            <span>Ver Registro de Citas</span>
+          </a>
+        </div>
+      </div>
 
     <!-- Tarjetas de estadísticas con consultas dinámicas -->
     <div class="stats-grid">

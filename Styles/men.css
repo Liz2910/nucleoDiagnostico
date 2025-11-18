@@ -184,6 +184,10 @@ body {
     animation-delay: 0.3s;
 }
 
+.menu-section:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
 .menu-section:hover {
     transform: translateY(-8px);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
@@ -220,6 +224,10 @@ body {
 
 .menu-section.pacientes .menu-icon {
     background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+}
+
+.menu-section.citas .menu-icon {
+    background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
 }
 
 .menu-header h2 {
@@ -274,6 +282,13 @@ body {
     border-color: #27ae60;
 }
 
+.menu-section.citas .menu-link:hover {
+    background: #9b59b6;
+    color: white;
+    transform: translateX(8px);
+    border-color: #8e44ad;
+}
+
 /* Stats cards - Alineadas con el grid de menús */
 .stats-grid {
     display: grid;
@@ -297,15 +312,15 @@ body {
 }
 
 .stat-card:nth-child(1) {
-    animation-delay: 0.4s;
-}
-
-.stat-card:nth-child(2) {
     animation-delay: 0.5s;
 }
 
-.stat-card:nth-child(3) {
+.stat-card:nth-child(2) {
     animation-delay: 0.6s;
+}
+
+.stat-card:nth-child(3) {
+    animation-delay: 0.7s;
 }
 
 .stat-card:hover {
