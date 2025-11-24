@@ -1,0 +1,295 @@
+/* === Reset general === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, rgba(13, 27, 42, 0.95) 0%, rgba(27, 38, 59, 0.95) 50%, rgba(65, 90, 119, 0.90) 100%),
+        url('../Assets/fondo-hospital.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    padding: 40px 20px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+/* === Contenedor principal === */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    background: rgba(255, 255, 255, 0.97);
+    padding: 35px 40px;
+    border-radius: 24px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.28);
+    animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* === Header === */
+h1 {
+    color: #004a98;
+    text-align: center;
+    font-size: 2.3rem;
+    margin-bottom: 10px;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 i {
+    color: #9b59b6;
+}
+
+.description {
+    text-align: center;
+    color: #6c757d;
+    margin-bottom: 25px;
+}
+
+/* === Bloque de filtros === */
+.filters-card {
+    background: rgba(248, 249, 252, 0.98);
+    border-radius: 18px;
+    padding: 20px 22px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    align-items: end;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+.filters-card label {
+    font-weight: 600;
+    color: #333;
+    display: block;
+    margin-bottom: 6px;
+    font-size: 0.95rem;
+}
+
+.select-field,
+.date-field,
+.patient-select {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 2px solid #dde2eb;
+    background: #fff;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.select-field:focus,
+.date-field:focus,
+.patient-select:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.25);
+    background: #f8fbff;
+}
+
+.btn-search {
+    width: 100%;
+    padding: 13px 20px;
+    border-radius: 12px;
+    border: none;
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    color: white;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 6px 18px rgba(52, 152, 219, 0.45);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-search:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 26px rgba(52, 152, 219, 0.6);
+}
+
+/* === Selector de Paciente === */
+.patient-selector {
+    background: linear-gradient(135deg, rgba(155, 89, 182, 0.08) 0%, rgba(142, 68, 173, 0.12) 100%);
+    border-radius: 16px;
+    padding: 20px 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 16px rgba(155, 89, 182, 0.15);
+}
+
+.patient-selector label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    color: #5b2c6f;
+    margin-bottom: 12px;
+    font-size: 1.05rem;
+}
+
+.patient-selector label i {
+    color: #9b59b6;
+    font-size: 1.2rem;
+}
+
+/* === Grid de horarios === */
+.slots-card {
+    background: rgba(248, 249, 252, 0.98);
+    border-radius: 18px;
+    padding: 20px 22px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+}
+
+.slots-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.slots-header h3 {
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.slots-grid {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 12px;
+}
+
+/* === Formulario de slot === */
+.slot-form {
+    display: contents;
+}
+
+/* === Slots === */
+.slot {
+    border-radius: 12px;
+    padding: 14px 10px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: 2px solid transparent;
+    transition: 0.2s ease;
+    cursor: default;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.slot strong {
+    font-size: 1.1rem;
+    display: block;
+}
+
+.slot span {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.slot i {
+    font-size: 1rem;
+    margin-top: 4px;
+}
+
+/* Libre (verde) */
+.slot-free {
+    background: linear-gradient(135deg, #e8f8f0 0%, #d5f3e4 100%);
+    border-color: #27ae60;
+    color: #1f7a3f;
+    cursor: pointer;
+    border: none;
+    width: 100%;
+}
+
+.slot-free:hover {
+    background: linear-gradient(135deg, #d5f3e4 0%, #c3ead4 100%);
+    box-shadow: 0 6px 18px rgba(39, 174, 96, 0.4);
+    transform: translateY(-3px);
+}
+
+.slot-free:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(39, 174, 96, 0.35);
+}
+
+/* Ocupado (rojo) */
+.slot-busy {
+    background: linear-gradient(135deg, #fdecea 0%, #fadbd8 100%);
+    border-color: #e74c3c;
+    color: #c0392b;
+}
+
+/* === Botón de volver === */
+.back-container {
+    text-align: center;
+    margin-top: 28px;
+}
+
+.back-btn {
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    color: white;
+    padding: 12px 28px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 6px 18px rgba(52, 152, 219, 0.45);
+    transition: 0.2s ease;
+}
+
+.back-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 26px rgba(52, 152, 219, 0.6);
+}
+
+/* === Responsivo === */
+@media (max-width: 768px) {
+    .container {
+        padding: 25px 18px;
+        border-radius: 18px;
+    }
+
+    h1 {
+        font-size: 1.7rem;
+    }
+
+    .slots-grid {
+        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+        gap: 10px;
+    }
+
+    .slot {
+        padding: 12px 8px;
+    }
+}

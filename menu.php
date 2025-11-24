@@ -132,6 +132,7 @@ pg_close($conexion);
     </div>
 
     <!-- Menú Citas -->
+    <div class="menu-grid">
       <div class="menu-section citas">
         <div class="menu-header">
           <div class="menu-icon">
@@ -148,8 +149,28 @@ pg_close($conexion);
             <i class="fas fa-list"></i>
             <span>Ver Registro de Citas</span>
           </a>
+          <a class="menu-link" href="disponibilidad.php">
+            <i class="fas fa-calendar-check"></i> Disponibilidad de Citas
+          </a>
         </div>
       </div>
+      <div class="menu-section medicamento">
+            <div class="menu-header">
+                <div class="menu-icon"><i class="fas fa-pills"></i></div>
+                <h2>Medicamentos</h2>
+            </div>
+
+            <div class="menu-options">
+                <a class="menu-link" href="insertar_medicamento.php">
+                    <i class="fas fa-plus"></i> Registrar Nuevo Medicamento
+                </a>
+
+                <a class="menu-link" href="consultar_medicamento.php">
+                    <i class="fas fa-list"></i> Ver Inventario de Medicamentos
+                </a>
+            </div>
+        </div>
+    </div>
 
     <!-- Tarjetas de estadísticas con consultas dinámicas -->
     <div class="stats-grid">

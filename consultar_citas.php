@@ -1,74 +1,118 @@
 <?php
 session_start();
 if (!isset($_SESSION['usuario']) || !isset($_SESSION['codigo'])) {
-    header("Location: ../index.php");
+    header("Location: index.php");
     exit();
 }
 
-include("../conecta.php");
+include("conecta.php");
 
-$nombre = pg_escape_string($conexion, $_POST['nombre']);
-$via_adm = pg_escape_string($conexion, $_POST['via_adm']);
-$presentacion = pg_escape_string($conexion, $_POST['presentacion']);
-$fecha_cad = $_POST['fecha_cad'];
+$hoy = date("Y-m-d");
 
-$query = "INSERT INTO medicamento (nombre, via_adm, presentacion, fecha_cad)
-VALUES ('$nombre', '$via_adm', '$presentacion', '$fecha_cad')";
-
+$query = "
+    SELECT 
+        c.id_cita,
+        p.nombre AS paciente,
+        d.nombre AS doctor,
+        c.fecha,
+        c.hora
+    FROM citas c
+    JOIN paciente p ON c.id_paciente = p.codigo
+    JOIN doctor d ON c.id_doctor = d.codigo
+    ORDER BY c.fecha DESC, c.hora DESC
+";
 $resultado = pg_query($conexion, $query);
-$error_message = $resultado ? "" : pg_last_error($conexion);
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Resultado - Medicamento</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="../Styles/form.css">
-  <link rel="stylesheet" href="../Styles/resultado.css">
+    <meta charset="UTF-8">
+    <title>Consultar Citas</title>
+    <link rel="stylesheet" href="Styles/cons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .action-btn {
+            padding: 6px 14px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.3s ease;
+            font-size: 0.85rem;
+        }
+        .edit-btn { background: #3498db; margin-right: 6px; }
+        .edit-btn:hover { background: #2c81ba; }
+
+        .delete-btn { background: #e74c3c; }
+        .delete-btn:hover { background: #c0392b; }
+    </style>
 </head>
+
 <body>
-  <div class="container result-container">
-    <div class="form-card result-card">
-      <?php
-      if ($resultado) {
-        echo '<div class="success-icon">';
-        echo '<i class="fas fa-pills"></i>';
-        echo '</div>';
-        echo '<h2 class="result-title">¡Medicamento Registrado Exitosamente!</h2>';
-        echo '<p class="result-message">El medicamento ha sido agregado correctamente al inventario.</p>';
-        
-        echo '<div class="success-details">';
-        echo '<p><i class="fas fa-pills"></i><strong>Nombre:</strong> ' . htmlspecialchars($nombre) . '</p>';
-        echo '<p><i class="fas fa-prescription-bottle-alt"></i><strong>Vía de Administración:</strong> ' . htmlspecialchars($via_adm) . '</p>';
-        echo '<p><i class="fas fa-pills"></i><strong>Presentación:</strong> ' . htmlspecialchars($presentacion) . '</p>';
-        echo '<p><i class="fas fa-calendar-times"></i><strong>Fecha de caducidad:</strong> ' . htmlspecialchars($fecha_cad) . '</p>';
-        echo '</div>';
-      } else {
-        echo '<div class="error-icon">';
-        echo '<i class="fas fa-times"></i>';
-        echo '</div>';
-        echo '<h2 class="result-title">Error al Registrar el medicamento</h2>';
-        echo '<p class="result-message">No se pudo completar el registro del medicamento</p>';
-        echo '<div class="error-detail">';
-        echo '<p><i class="fas fa-exclamation-triangle"></i><strong>Detalle del error:</strong><br>' . htmlspecialchars($error_message) . '</p>';
-        echo '</div>';
-      }
-      pg_close($conexion);
-      ?>
-      
-      <div class="button-group">
-        <a href="../insertar_medicamento.php" class="btn btn-primary" style="background: linear-gradient(135deg, #b69a59 0%, #ad7f44 100%); box-shadow: 0 4px 16px rgba(188, 129, 26, 0.3);">
-          <i class="fas fa-plus"></i>
-          <span>Registrar Otro Medicamento</span>
-        </a>
-        <a href="../menu.php" class="btn btn-secondary">
-          <i class="fas fa-home"></i>
-          <span>Volver al Menú</span>
-        </a>
-      </div>
+
+<div class="container">
+
+    <h2>Listado de Citas</h2>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID Cita</th>
+                    <th>Paciente</th>
+                    <th>Doctor</th>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                if (!$resultado) {
+                    echo "<tr><td colspan='6'>Error al consultar citas.</td></tr>";
+                } elseif (pg_num_rows($resultado) === 0) {
+                    echo "<tr><td colspan='6'>No hay citas registradas.</td></tr>";
+                } else {
+                    while ($row = pg_fetch_assoc($resultado)) {
+
+                        $esFutura = strtotime($row['fecha']) >= strtotime($hoy);
+
+                        echo "<tr>
+                                <td>{$row['id_cita']}</td>
+                                <td>{$row['paciente']}</td>
+                                <td>{$row['doctor']}</td>
+                                <td>{$row['fecha']}</td>
+                                <td>{$row['hora']}</td>
+                                <td>";
+
+                        if ($esFutura) {
+                            echo "
+                                <a class='action-btn edit-btn' href='editar_cita.php?id={$row['id_cita']}'>
+                                    <i class='fas fa-edit'></i> Editar
+                                </a>";
+                        }
+
+                        echo "
+                            <a class='action-btn delete-btn' href='Actions/cancelar_cita.php?id={$row['id_cita']}'>
+                                <i class='fas fa-trash'></i> Eliminar
+                            </a>
+                        </td>
+                        </tr>";
+                    }
+                }
+                ?>
+            </tbody>
+        </table>
     </div>
-  </div>
+
+    <div class="btn-container">
+        <a href="menu.php" class="back-btn">Volver al menú</a>
+    </div>
+
+</div>
+
+<?php pg_close($conexion); ?>
 </body>
 </html>
