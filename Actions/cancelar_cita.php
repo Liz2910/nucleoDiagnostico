@@ -20,7 +20,7 @@ $query_info = "SELECT c.*, p.nombre as nombre_paciente, d.nombre as nombre_docto
                FROM citas c
                INNER JOIN paciente p ON c.id_paciente = p.codigo
                INNER JOIN doctor d ON c.id_doctor = d.codigo
-               WHERE c.cita = $cita_id";
+               WHERE c.id_cita = $cita_id";
 $resultado_info = pg_query($conexion, $query_info);
 
 if (!$resultado_info || pg_num_rows($resultado_info) == 0) {
@@ -31,7 +31,7 @@ if (!$resultado_info || pg_num_rows($resultado_info) == 0) {
 $cita_info = pg_fetch_assoc($resultado_info);
 
 // Eliminar la cita
-$query_delete = "DELETE FROM citas WHERE cita = $cita_id";
+$query_delete = "DELETE FROM citas WHERE id_cita = $cita_id";
 $resultado = pg_query($conexion, $query_delete);
 $error_message = $resultado ? "" : pg_last_error($conexion);
 ?>

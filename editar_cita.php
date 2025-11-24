@@ -80,7 +80,7 @@ $resultado_doctores = pg_query($conexion, $query_doctores);
 
       <!-- Formulario -->
       <form action="Actions/editar_cita_action.php" method="post">
-        <input type="hidden" name="cita_id" value="<?php echo $cita['cita']; ?>">
+        <input type="hidden" name="cita_id" value="<?php echo $cita['id_cita']; ?>">
         
         <div class="form-grid">
           <!-- Paciente -->

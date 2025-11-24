@@ -8,10 +8,18 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['codigo'])) {
 include("../conecta.php");
 
 // Recibir datos del formulario
+$cita_id = intval($_POST['cita_id']);
 $id_paciente = intval($_POST['id_paciente']);
 $id_doctor = intval($_POST['id_doctor']);
 $fecha = $_POST['fecha'];
 $hora = $_POST['hora'];
+
+// Verificar que la cita existe
+$check_cita = pg_query($conexion, "SELECT * FROM citas WHERE id_cita = $cita_id");
+if (!$check_cita || pg_num_rows($check_cita) == 0) {
+    header("Location: ../consultar_citas.php?error=noexiste");
+    exit();
+}
 
 // Verificar que el paciente existe
 $check_paciente = pg_query($conexion, "SELECT codigo, nombre FROM paciente WHERE codigo = $id_paciente");
@@ -31,30 +39,21 @@ if (!$paciente_existe) {
 } elseif (!$doctor_existe) {
     $error_message = "El doctor especificado ($id_doctor) no existe en el sistema.";
 } else {
-    // Verificar conflictos de horario considerando que cada cita dura 1 hora
-    // Una cita ocupa desde la hora seleccionada hasta 1 hora después
-    
-    // Convertir la hora a timestamp para hacer cálculos
+    // Verificar conflictos de horario (excluyendo la cita actual)
     $hora_inicio = $hora;
-    $hora_fin = date('H:i:s', strtotime($hora) + 3600); // +1 hora (3600 segundos)
+    $hora_fin = date('H:i:s', strtotime($hora) + 3600);
     
-    // Verificar si hay conflictos:
-    // 1. Citas que empiezan en el mismo horario
-    // 2. Citas que empiezan antes pero terminan después de nuestra hora de inicio
-    // 3. Citas que empiezan después pero antes de nuestra hora de fin
     $query_conflicto = "SELECT c.hora, p.nombre as paciente_nombre 
                         FROM citas c 
                         INNER JOIN paciente p ON c.id_paciente = p.codigo
                         WHERE c.id_doctor = $id_doctor 
                         AND c.fecha = '$fecha'
+                        AND c.id_cita != $cita_id
                         AND (
-                            -- Caso 1: Misma hora exacta
                             c.hora = '$hora_inicio'
                             OR
-                            -- Caso 2: La cita existente empieza antes pero termina después de nuestra hora inicio
                             (c.hora < '$hora_inicio' AND (c.hora + interval '1 hour') > '$hora_inicio')
                             OR
-                            -- Caso 3: La cita existente empieza después de nuestro inicio pero antes de nuestro fin
                             (c.hora > '$hora_inicio' AND c.hora < '$hora_fin')
                         )";
     
@@ -65,11 +64,15 @@ if (!$paciente_existe) {
         $hora_conflicto = date('h:i A', strtotime($conflicto['hora']));
         $error_message = "Conflicto de horario: El doctor ya tiene una cita con " . 
                         htmlspecialchars($conflicto['paciente_nombre']) . 
-                        " a las $hora_conflicto. Las citas duran 1 hora. Por favor, seleccione otro horario.";
+                        " a las $hora_conflicto. Las citas duran 1 hora.";
     } else {
-        // Query para insertar en la tabla citas
-        $query = "INSERT INTO citas (id_paciente, id_doctor, fecha, hora)
-        VALUES ($id_paciente, $id_doctor, '$fecha', '$hora')";
+        // Query para actualizar la cita
+        $query = "UPDATE citas 
+                  SET id_paciente = $id_paciente, 
+                      id_doctor = $id_doctor, 
+                      fecha = '$fecha', 
+                      hora = '$hora'
+                  WHERE id_cita = $cita_id";
         
         $resultado = pg_query($conexion, $query);
         
@@ -84,7 +87,7 @@ if (!$paciente_existe) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Resultado - Cita</title>
+  <title>Resultado - Modificación de Cita</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="../Styles/form.css">
   <link rel="stylesheet" href="../Styles/resultado.css">
@@ -94,33 +97,33 @@ if (!$paciente_existe) {
     <div class="form-card result-card">
       <?php
       if ($resultado) {
-        // Formatear fecha y hora para mostrar
         $fecha_formateada = date('d/m/Y', strtotime($fecha));
         $hora_formateada = date('h:i A', strtotime($hora));
-        $hora_fin_formateada = date('h:i A', strtotime($hora) + 3600); // +1 hora
+        $hora_fin_formateada = date('h:i A', strtotime($hora) + 3600);
         
         echo '<div class="success-icon" style="background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%); box-shadow: 0 6px 20px rgba(155, 89, 182, 0.35);">';
         echo '<i class="fas fa-check"></i>';
         echo '</div>';
-        echo '<h2 class="result-title">¡Cita Agendada Exitosamente!</h2>';
-        echo '<p class="result-message">La cita médica ha sido registrada correctamente en el sistema</p>';
+        echo '<h2 class="result-title">¡Cita Modificada Exitosamente!</h2>';
+        echo '<p class="result-message">Los cambios han sido guardados correctamente</p>';
         
         echo '<div class="success-details">';
-        echo '<p><i class="fas fa-user-injured"></i><strong>Paciente:</strong> ' . htmlspecialchars($paciente_info['nombre']) . ' (ID: ' . $id_paciente . ')</p>';
+        echo '<p><i class="fas fa-hashtag"></i><strong>ID Cita:</strong> ' . $cita_id . '</p>';
+        echo '<p><i class="fas fa-user-injured"></i><strong>Paciente:</strong> ' . htmlspecialchars($paciente_info['nombre']) . '</p>';
         echo '<p><i class="fas fa-user-md"></i><strong>Doctor:</strong> ' . htmlspecialchars($doctor_info['nombre']) . '</p>';
         echo '<p><i class="fas fa-stethoscope"></i><strong>Especialidad:</strong> ' . htmlspecialchars($doctor_info['especialidad']) . '</p>';
         echo '</div>';
         
         echo '<div class="info-details" style="background: linear-gradient(135deg, #e8daef 0%, #d7bde2 100%); border-left-color: #9b59b6;">';
-        echo '<p style="color: #6c3483;"><i class="fas fa-calendar-day" style="color: #9b59b6;"></i><strong>Fecha:</strong> ' . $fecha_formateada . '</p>';
-        echo '<p style="color: #6c3483;"><i class="fas fa-clock" style="color: #9b59b6;"></i><strong>Horario:</strong> ' . $hora_formateada . ' - ' . $hora_fin_formateada . ' (1 hora)</p>';
+        echo '<p style="color: #6c3483;"><i class="fas fa-calendar-day" style="color: #9b59b6;"></i><strong>Nueva Fecha:</strong> ' . $fecha_formateada . '</p>';
+        echo '<p style="color: #6c3483;"><i class="fas fa-clock" style="color: #9b59b6;"></i><strong>Nuevo Horario:</strong> ' . $hora_formateada . ' - ' . $hora_fin_formateada . '</p>';
         echo '</div>';
       } else {
         echo '<div class="error-icon">';
         echo '<i class="fas fa-times"></i>';
         echo '</div>';
-        echo '<h2 class="result-title">Error al Agendar Cita</h2>';
-        echo '<p class="result-message">No se pudo completar el agendamiento de la cita</p>';
+        echo '<h2 class="result-title">Error al Modificar Cita</h2>';
+        echo '<p class="result-message">No se pudieron guardar los cambios</p>';
         echo '<div class="error-detail">';
         echo '<p><i class="fas fa-exclamation-triangle"></i><strong>Detalle del error:</strong><br>' . htmlspecialchars($error_message) . '</p>';
         echo '</div>';
@@ -129,9 +132,9 @@ if (!$paciente_existe) {
       ?>
       
       <div class="button-group">
-        <a href="../insertar_cita.php" class="btn btn-primary" style="background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%); box-shadow: 0 4px 16px rgba(155, 89, 182, 0.3);">
-          <i class="fas fa-calendar-plus"></i>
-          <span>Agendar Otra Cita</span>
+        <a href="../consultar_citas.php" class="btn btn-primary" style="background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%); box-shadow: 0 4px 16px rgba(155, 89, 182, 0.3);">
+          <i class="fas fa-list"></i>
+          <span>Ver Todas las Citas</span>
         </a>
         <a href="../menu.php" class="btn btn-secondary">
           <i class="fas fa-home"></i>

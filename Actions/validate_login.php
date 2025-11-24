@@ -53,6 +53,10 @@ if (verificarLogin($conexion, "empleado", $codigo, $contrasena, "empleado")) {
     header("Location: ../menu.php");
     exit();
 }
+if (verificarLogin($conexion, "doctor", $codigo, $contrasena, "doctor")) {
+    header("Location: ../menu_doc.php");
+    exit();
+}
 
 header("Location: ../index.php?error=invalid");
 exit();
