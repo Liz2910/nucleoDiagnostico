@@ -26,7 +26,38 @@ if ($paciente <= 0 || $doctor <= 0 || empty($fecha) || empty($hora)) {
     exit();
 }
 
-// Validar duplicado
+// ========== VALIDACIÓN DE HORARIO ==========
+// Solo Lunes a Viernes
+$diaSemana = date('N', strtotime($fecha)); // 1=Lunes, 7=Domingo
+if ($diaSemana > 5) {
+    $tipo = "warning";
+    $titulo = "Día No Válido";
+    $msg = "Solo se pueden agendar citas de Lunes a Viernes.";
+    include("../resultado_insertar.php");
+    exit();
+}
+
+// Solo de 9:00 a 20:00 (última cita a las 19:00 para terminar a las 20:00)
+$horaInt = intval(substr($hora, 0, 2));
+if ($horaInt < 9 || $horaInt > 19) {
+    $tipo = "warning";
+    $titulo = "Hora No Válida";
+    $msg = "El horario de citas es de 9:00 a 20:00 hrs. La última cita disponible es a las 19:00.";
+    include("../resultado_insertar.php");
+    exit();
+}
+
+// Intervalos de 1 hora (minutos deben ser 00)
+$minutos = intval(substr($hora, 3, 2));
+if ($minutos !== 0) {
+    $tipo = "warning";
+    $titulo = "Hora No Válida";
+    $msg = "Las citas deben ser en intervalos de 1 hora (ej: 9:00, 10:00, 11:00...).";
+    include("../resultado_insertar.php");
+    exit();
+}
+
+// Validar duplicado (mismo doctor, misma fecha y hora)
 $check = pg_query_params(
     $conexion,
     "SELECT 1 FROM citas WHERE id_doctor = $1 AND fecha = $2 AND hora = $3 LIMIT 1",

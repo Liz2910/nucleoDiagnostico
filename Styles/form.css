@@ -486,3 +486,582 @@ select.form-control {
         font-size: 1.5rem;
     }
 }
+
+/* ============================================
+   ESTILOS PREMIUM - DIAGNÓSTICO
+   ============================================ */
+
+/* Fuente premium */
+body.premium-layout {
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+/* Decoraciones de fondo flotantes */
+.bg-decorations {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.floating-shape {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    animation: float 20s infinite ease-in-out;
+}
+
+.shape-1 {
+    width: 400px;
+    height: 400px;
+    top: -100px;
+    right: -100px;
+    animation-delay: 0s;
+}
+
+.shape-2 {
+    width: 300px;
+    height: 300px;
+    bottom: -50px;
+    left: -50px;
+    animation-delay: -7s;
+}
+
+.shape-3 {
+    width: 200px;
+    height: 200px;
+    top: 50%;
+    left: 50%;
+    animation-delay: -14s;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    25% {
+        transform: translate(30px, -30px) scale(1.05);
+    }
+
+    50% {
+        transform: translate(-20px, 20px) scale(0.95);
+    }
+
+    75% {
+        transform: translate(20px, 10px) scale(1.02);
+    }
+}
+
+/* Contenedor premium */
+body.premium-layout .container {
+    max-width: 900px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Tarjeta Glass Premium */
+.glass-card {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 32px;
+    padding: 48px;
+    box-shadow:
+        0 32px 64px rgba(0, 0, 0, 0.12),
+        0 0 0 1px rgba(255, 255, 255, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Header Premium */
+.card-header-premium {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 36px;
+}
+
+.header-badge {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.badge-icon-ring {
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #ff4f81 0%, #ff8fab 50%, #ffb5c5 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+        0 12px 32px rgba(255, 79, 129, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.badge-icon {
+    width: 56px;
+    height: 56px;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.badge-icon i {
+    font-size: 26px;
+    color: white;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.badge-pulse {
+    position: absolute;
+    inset: -6px;
+    border-radius: 26px;
+    border: 2px solid rgba(255, 79, 129, 0.4);
+    animation: badgePulse 2s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.08);
+        opacity: 0.5;
+    }
+}
+
+.header-content {
+    flex: 1;
+}
+
+.main-title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #2d3436;
+    margin: 0 0 6px;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #ff4f81 0%, #c9184a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.main-subtitle {
+    font-size: 1rem;
+    color: #636e72;
+    margin: 0;
+    font-weight: 400;
+}
+
+/* Tarjetas de información de cita */
+.appointment-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.info-card-premium {
+    background: linear-gradient(135deg, #fafbfc 0%, #f8f9fa 100%);
+    border-radius: 16px;
+    padding: 18px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.info-card-premium:hover {
+    box-shadow: 0 8px 24px rgba(255, 79, 129, 0.12);
+    border-color: rgba(255, 79, 129, 0.15);
+}
+
+.card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.card-icon i {
+    font-size: 18px;
+    color: white;
+}
+
+.patient-icon {
+    background: linear-gradient(135deg, #ff4f81 0%, #ff7aa8 100%);
+}
+
+.doctor-icon {
+    background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+}
+
+.calendar-icon {
+    background: linear-gradient(135deg, #00b894 0%, #55efc4 100%);
+}
+
+.id-icon {
+    background: linear-gradient(135deg, #fdcb6e 0%, #f9ca24 100%);
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.card-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #b2bec3;
+}
+
+.card-value {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #2d3436;
+    line-height: 1.3;
+}
+
+.id-value {
+    font-family: 'SF Mono', 'Consolas', monospace;
+    color: #ff4f81;
+}
+
+.card-badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    padding: 3px 8px;
+    background: linear-gradient(135deg, #dfe6e9 0%, #b2bec3 100%);
+    color: #2d3436;
+    border-radius: 6px;
+    font-weight: 600;
+    margin-top: 2px;
+    width: fit-content;
+}
+
+.card-time {
+    font-size: 0.85rem;
+    color: #00b894;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.card-time i {
+    font-size: 0.75rem;
+}
+
+/* Separador decorativo */
+.section-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 32px 0;
+}
+
+.divider-line {
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, #ffe0e9 50%, transparent 100%);
+    border-radius: 1px;
+}
+
+.divider-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #fff5f7 0%, #ffe0e9 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 2px solid #ffb8cb;
+}
+
+.divider-icon i {
+    font-size: 16px;
+    color: #ff4f81;
+}
+
+/* Secciones del formulario */
+.form-section {
+    margin-bottom: 28px;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 14px;
+}
+
+.section-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #ff4f81 0%, #ff7aa8 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 16px rgba(255, 79, 129, 0.3);
+}
+
+.section-icon.pills-icon {
+    background: linear-gradient(135deg, #00b894 0%, #55efc4 100%);
+    box-shadow: 0 6px 16px rgba(0, 184, 148, 0.3);
+}
+
+.section-icon i {
+    font-size: 18px;
+    color: white;
+}
+
+.section-text h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #2d3436;
+    margin: 0;
+}
+
+.section-text p {
+    font-size: 0.85rem;
+    color: #636e72;
+    margin: 2px 0 0;
+}
+
+/* Textarea Premium */
+.input-container {
+    position: relative;
+}
+
+.premium-textarea {
+    width: 100%;
+    padding: 16px 18px;
+    border: 2px solid #e9ecef;
+    border-radius: 14px;
+    font-size: 1rem;
+    font-family: inherit;
+    resize: vertical;
+    min-height: 120px;
+    transition: all 0.3s ease;
+    background: #fafbfc;
+    color: #2d3436;
+    line-height: 1.6;
+}
+
+.premium-textarea:focus {
+    outline: none;
+    border-color: #ff4f81;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(255, 79, 129, 0.1);
+}
+
+.premium-textarea::placeholder {
+    color: #b2bec3;
+}
+
+.char-counter {
+    position: absolute;
+    bottom: 12px;
+    right: 14px;
+    font-size: 0.75rem;
+    color: #b2bec3;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+.counter-current {
+    color: #ff4f81;
+    font-weight: 700;
+}
+
+/* Select Premium */
+.select-container {
+    position: relative;
+}
+
+.premium-select {
+    width: 100%;
+    padding: 16px 50px 16px 18px;
+    border: 2px solid #e9ecef;
+    border-radius: 14px;
+    font-size: 1rem;
+    font-family: inherit;
+    background: #fafbfc;
+    color: #2d3436;
+    cursor: pointer;
+    appearance: none;
+    transition: all 0.3s ease;
+}
+
+.premium-select:focus {
+    outline: none;
+    border-color: #00b894;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(0, 184, 148, 0.1);
+}
+
+.select-arrow {
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #b2bec3;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.premium-select:focus+.select-arrow {
+    color: #00b894;
+}
+
+/* Botones Premium */
+.action-buttons {
+    display: flex;
+    gap: 16px;
+    margin-top: 36px;
+}
+
+.btn-premium {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 18px 28px;
+    border: none;
+    border-radius: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-save {
+    background: linear-gradient(135deg, #ff4f81 0%, #e91e63 100%);
+    color: white;
+    box-shadow: 0 8px 24px rgba(255, 79, 129, 0.35);
+}
+
+.btn-save:hover {
+    box-shadow: 0 12px 32px rgba(255, 79, 129, 0.45);
+}
+
+.btn-shine {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-save:hover .btn-shine {
+    left: 100%;
+}
+
+.btn-cancel {
+    background: linear-gradient(135deg, #dfe6e9 0%, #b2bec3 100%);
+    color: #2d3436;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.btn-cancel:hover {
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.btn-icon {
+    font-size: 1.1rem;
+}
+
+/* Footer de la tarjeta */
+.card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 36px;
+    padding-top: 24px;
+    border-top: 1px solid #f1f3f5;
+    color: #adb5bd;
+    font-size: 0.85rem;
+}
+
+.card-footer .footer-icon {
+    color: #00b894;
+}
+
+/* Responsividad Premium */
+@media (max-width: 768px) {
+    .glass-card {
+        padding: 28px 20px;
+        border-radius: 24px;
+    }
+
+    .card-header-premium {
+        flex-direction: column;
+        text-align: center;
+        gap: 16px;
+    }
+
+    .main-title {
+        font-size: 1.6rem;
+    }
+
+    .appointment-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    .btn-premium {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .badge-icon-ring {
+        width: 64px;
+        height: 64px;
+    }
+
+    .badge-icon {
+        width: 44px;
+        height: 44px;
+    }
+
+    .badge-icon i {
+        font-size: 20px;
+    }
+}

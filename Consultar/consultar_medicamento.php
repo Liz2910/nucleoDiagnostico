@@ -32,6 +32,7 @@ $resultado = pg_query($conexion, "SELECT codigo, nombre, via_adm, presentacion, 
             <th><i class="fas fas fa-syringe"></i> Vía Administración</th>
             <th><i class="fas fa-pills"></i> Presentación</th>
             <th><i class="fas fa-calendar-times"></i> Fecha Caducidad</th>
+            <th><i class="fas fa-cogs"></i> Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -44,10 +45,15 @@ $resultado = pg_query($conexion, "SELECT codigo, nombre, via_adm, presentacion, 
               echo "<td>" . htmlspecialchars($fila['via_adm']) . "</td>";
               echo "<td>" . htmlspecialchars($fila['presentacion']) . "</td>";
               echo "<td>" . htmlspecialchars($fila['fecha_cad']) . "</td>";
+              echo "<td class='actions-cell'>
+                      <a href='ver_medicamento.php?id=" . $fila['codigo'] . "' class='btn-action btn-view' title='Ver'><i class='fas fa-eye'></i></a>
+                      <a href='editar_medicamento.php?id=" . $fila['codigo'] . "' class='btn-action btn-edit' title='Editar'><i class='fas fa-edit'></i></a>
+                      <a href='../Actions/eliminar_medicamento.php?id=" . $fila['codigo'] . "' class='btn-action btn-delete' title='Eliminar' onclick='return confirm(\"¿Eliminar este medicamento?\");'><i class='fas fa-trash'></i></a>
+                    </td>";
               echo "</tr>";
             }
           } else {
-            echo "<tr><td colspan='5'>No hay medicamentos en el inventario</td></tr>";
+            echo "<tr><td colspan='6'>No hay medicamentos en el inventario</td></tr>";
           }
           pg_close($conexion);
           ?>

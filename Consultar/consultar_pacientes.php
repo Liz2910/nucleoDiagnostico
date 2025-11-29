@@ -35,6 +35,7 @@ $resultado = pg_query($conexion, "SELECT codigo, nombre, direccion, telefono, fe
             <th><i class="fas fa-venus-mars"></i> Sexo</th>
             <th><i class="fas fa-user-clock"></i> Edad</th>
             <th><i class="fas fa-ruler-vertical"></i> Estatura</th>
+            <th><i class="fas fa-cogs"></i> Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -50,10 +51,15 @@ $resultado = pg_query($conexion, "SELECT codigo, nombre, direccion, telefono, fe
               echo "<td>" . htmlspecialchars($fila['sexo']) . "</td>";
               echo "<td>" . htmlspecialchars($fila['edad']) . " años</td>";
               echo "<td>" . number_format($fila['estatura'], 2) . " m</td>";
+              echo "<td class='actions-cell'>
+                      <a href='ver_paciente.php?id=" . $fila['codigo'] . "' class='btn-action btn-view' title='Ver'><i class='fas fa-eye'></i></a>
+                      <a href='editar_paciente.php?id=" . $fila['codigo'] . "' class='btn-action btn-edit' title='Editar'><i class='fas fa-edit'></i></a>
+                      <a href='../Actions/eliminar_paciente.php?id=" . $fila['codigo'] . "' class='btn-action btn-delete' title='Eliminar' onclick='return confirm(\"¿Eliminar este paciente?\");'><i class='fas fa-trash'></i></a>
+                    </td>";
               echo "</tr>";
             }
           } else {
-            echo "<tr><td colspan='8'>No hay pacientes registrados</td></tr>";
+            echo "<tr><td colspan='9'>No hay pacientes registrados</td></tr>";
           }
           pg_close($conexion);
           ?>

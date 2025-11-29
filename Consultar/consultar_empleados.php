@@ -35,6 +35,7 @@ $resultado = pg_query($conexion, "SELECT codigo, nombre, direccion, telefono, fe
             <th><i class="fas fa-venus-mars"></i> Sexo</th>
             <th><i class="fas fa-dollar-sign"></i> Sueldo</th>
             <th><i class="fas fa-clock"></i> Turno</th>
+            <th><i class="fas fa-cogs"></i> Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -50,10 +51,15 @@ $resultado = pg_query($conexion, "SELECT codigo, nombre, direccion, telefono, fe
               echo "<td>" . htmlspecialchars($fila['sexo']) . "</td>";
               echo "<td>$" . number_format($fila['sueldo'], 2) . "</td>";
               echo "<td>" . htmlspecialchars($fila['turno']) . "</td>";
+              echo "<td class='actions-cell'>
+                      <a href='ver_empleado.php?id=" . $fila['codigo'] . "' class='btn-action btn-view' title='Ver'><i class='fas fa-eye'></i></a>
+                      <a href='editar_empleado.php?id=" . $fila['codigo'] . "' class='btn-action btn-edit' title='Editar'><i class='fas fa-edit'></i></a>
+                      <a href='../Actions/eliminar_empleado.php?id=" . $fila['codigo'] . "' class='btn-action btn-delete' title='Eliminar' onclick='return confirm(\"¿Eliminar este empleado?\");'><i class='fas fa-trash'></i></a>
+                    </td>";
               echo "</tr>";
             }
           } else {
-            echo "<tr><td colspan='8'>No hay empleados registrados</td></tr>";
+            echo "<tr><td colspan='9'>No hay empleados registrados</td></tr>";
           }
           pg_close($conexion);
           ?>

@@ -1,0 +1,992 @@
+/* =====================================================
+   DOCTOR MENU - La Salud es Primero
+   ===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body.doctor-portal {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* =====================================================
+   DOCTOR PICKER (Admin selecciona doctor)
+   ===================================================== */
+.doctor-picker-card {
+    max-width: 450px;
+    margin: 80px auto;
+    background: rgba(255, 255, 255, 0.98);
+    padding: 50px 40px;
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+    text-align: center;
+}
+
+.doctor-picker-card>i {
+    font-size: 4rem;
+    color: #667eea;
+    margin-bottom: 20px;
+}
+
+.doctor-picker-card h1 {
+    font-size: 1.3rem;
+    color: #333;
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
+.doctor-picker-card select {
+    width: 100%;
+    padding: 14px 18px;
+    font-size: 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    transition: border-color 0.3s;
+}
+
+.doctor-picker-card select:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.doctor-picker-card button {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.doctor-picker-card button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+}
+
+/* =====================================================
+   HEADER PRINCIPAL
+   ===================================================== */
+.doctor-header {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 24px 32px;
+    margin-bottom: 28px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.branding {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.brand-icon {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.35);
+}
+
+.brand-icon i {
+    font-size: 1.8rem;
+    color: white;
+}
+
+.branding .tagline {
+    font-size: 0.85rem;
+    color: #888;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.branding h1 {
+    font-size: 1.6rem;
+    color: #333;
+    margin: 0;
+}
+
+.branding .subline {
+    font-size: 0.95rem;
+    color: #667eea;
+    font-weight: 500;
+    margin-top: 4px;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.doctor-code {
+    background: rgba(102, 126, 234, 0.1);
+    color: #667eea;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.doctor-code i {
+    margin-right: 6px;
+}
+
+.header-link {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    color: white;
+    padding: 12px 22px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.header-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(231, 76, 60, 0.35);
+}
+
+/* =====================================================
+   CONTAINER GENERAL
+   ===================================================== */
+.doctor-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* =====================================================
+   PANEL CARDS GRID
+   ===================================================== */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+    margin-bottom: 28px;
+}
+
+.panel {
+    background: rgba(255, 255, 255, 0.98);
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s;
+}
+
+.panel:hover {
+    box-shadow: 0 10px 36px rgba(0, 0, 0, 0.15);
+}
+
+.panel-title {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+}
+
+.panel-title i {
+    font-size: 1.5rem;
+    color: white;
+}
+
+.panel h2 {
+    font-size: 1.25rem;
+    color: #333;
+    margin-bottom: 18px;
+}
+
+/* =====================================================
+   UPCOMING PANEL (Próximas citas)
+   ===================================================== */
+.upcoming-panel .next-appointment {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 18px;
+    border-left: 4px solid #667eea;
+}
+
+.upcoming-panel .next-appointment strong {
+    display: block;
+    font-size: 1.1rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.upcoming-panel .next-appointment p {
+    font-size: 0.9rem;
+    color: #555;
+    margin: 6px 0;
+}
+
+.upcoming-panel .next-appointment p i {
+    width: 20px;
+    color: #667eea;
+    margin-right: 8px;
+}
+
+.appointments-list {
+    list-style: none;
+}
+
+.appointments-list li {
+    display: flex;
+    flex-direction: column;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.appointments-list li:last-child {
+    border-bottom: none;
+}
+
+.appointments-list li span {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.appointments-list li strong {
+    font-size: 0.95rem;
+    color: #333;
+}
+
+/* =====================================================
+   QUICK LINKS PANEL
+   ===================================================== */
+.quick-links .panel-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    background: #f8f9ff;
+    border-radius: 12px;
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    margin-bottom: 12px;
+    transition: background 0.3s, color 0.3s;
+}
+
+.quick-links .panel-link:last-child {
+    margin-bottom: 0;
+}
+
+.quick-links .panel-link i {
+    font-size: 1.1rem;
+    color: #667eea;
+    width: 24px;
+}
+
+.quick-links .panel-link:hover {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.quick-links .panel-link:hover i {
+    color: white;
+}
+
+/* =====================================================
+   PATIENT & DIAGNOSIS SECTION (2 columnas)
+   ===================================================== */
+.patient-diagnosis {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 24px;
+    margin-bottom: 28px;
+}
+
+@media (max-width: 900px) {
+    .patient-diagnosis {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Patient Card */
+.patient-card .patient-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.patient-card .patient-grid>div {
+    background: #f8f9ff;
+    padding: 14px;
+    border-radius: 10px;
+}
+
+.patient-card .patient-grid>div span {
+    display: block;
+    font-size: 0.75rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.patient-card .patient-grid>div strong {
+    font-size: 0.95rem;
+    color: #333;
+}
+
+.patient-card .patient-grid .full-row {
+    grid-column: 1 / -1;
+}
+
+/* Diagnosis Panel */
+.diagnosis-panel .diagnostico-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.diagnosis-panel label {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.diagnosis-panel textarea,
+.diagnosis-panel select,
+.diagnosis-panel input[type="text"] {
+    margin-top: 8px;
+    padding: 12px 14px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    transition: border-color 0.3s;
+    font-family: inherit;
+}
+
+.diagnosis-panel textarea:focus,
+.diagnosis-panel select:focus,
+.diagnosis-panel input[type="text"]:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.diagnosis-panel textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Medications Group */
+.medications-group {
+    background: #f8f9ff;
+    padding: 18px;
+    border-radius: 14px;
+}
+
+.med-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+    align-items: center;
+}
+
+.med-row select {
+    flex: 1;
+}
+
+.med-row input[type="text"] {
+    flex: 1.5;
+}
+
+.btn-remove-med {
+    width: 36px;
+    height: 36px;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s;
+}
+
+.btn-remove-med:hover {
+    background: #c0392b;
+}
+
+.btn-add-med {
+    background: transparent;
+    border: 2px dashed #667eea;
+    color: #667eea;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.3s, color 0.3s;
+}
+
+.btn-add-med:hover {
+    background: #667eea;
+    color: white;
+}
+
+/* Submit Button */
+.btn-receta {
+    background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.btn-receta:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(39, 174, 96, 0.4);
+}
+
+.btn-receta:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.medication-warning {
+    background: rgba(231, 76, 60, 0.1);
+    color: #c0392b;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+}
+
+.medication-warning i {
+    margin-right: 8px;
+}
+
+/* =====================================================
+   HISTORY PANEL (Consultas realizadas)
+   ===================================================== */
+.history-panel {
+    background: rgba(255, 255, 255, 0.98);
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+    margin-bottom: 28px;
+}
+
+.history-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+}
+
+.history-item {
+    background: #f8f9ff;
+    border-radius: 14px;
+    padding: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.history-item>div {
+    flex: 1;
+}
+
+.history-item strong {
+    display: block;
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 4px;
+}
+
+.history-item p {
+    font-size: 0.85rem;
+    color: #888;
+    margin-bottom: 8px;
+}
+
+.history-item span {
+    font-size: 0.8rem;
+    color: #555;
+    display: block;
+    white-space: pre-line;
+}
+
+.history-item .panel-link.compact {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    color: white;
+    padding: 10px 16px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.history-item .panel-link.compact:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(231, 76, 60, 0.35);
+}
+
+/* =====================================================
+   DATA TABLES SECTION
+   ===================================================== */
+.data-section {
+    margin-bottom: 28px;
+}
+
+.data-section .panel h2 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.data-section .panel h2 .badge {
+    background: rgba(102, 126, 234, 0.15);
+    color: #667eea;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.data-table-wrapper {
+    overflow-x: auto;
+    margin-top: 18px;
+    border-radius: 12px;
+    max-height: 320px;
+    overflow-y: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+.data-table thead {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    position: sticky;
+    top: 0;
+}
+
+.data-table th {
+    padding: 14px 12px;
+    text-align: left;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.data-table th i {
+    margin-right: 6px;
+    opacity: 0.85;
+}
+
+.data-table td {
+    padding: 12px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.data-table tbody tr:hover {
+    background: rgba(102, 126, 234, 0.05);
+}
+
+.data-table td:first-child {
+    font-weight: 600;
+    color: #667eea;
+}
+
+/* =====================================================
+   TABS FOR DATA TABLES
+   ===================================================== */
+.tabs-container {
+    margin-bottom: 28px;
+}
+
+.tabs-header {
+    display: flex;
+    gap: 0;
+    background: rgba(255, 255, 255, 0.98);
+    border-radius: 16px 16px 0 0;
+    overflow: hidden;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.05);
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 18px 24px;
+    background: #f0f0f5;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: background 0.3s, color 0.3s;
+}
+
+.tab-btn i {
+    font-size: 1.1rem;
+}
+
+.tab-btn.active {
+    background: rgba(255, 255, 255, 0.98);
+    color: #667eea;
+}
+
+.tab-btn:hover:not(.active) {
+    background: #e8e8f0;
+}
+
+.tab-content {
+    display: none;
+    background: rgba(255, 255, 255, 0.98);
+    border-radius: 0 0 20px 20px;
+    padding: 28px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* =====================================================
+   CITAS TABLE SPECIFIC
+   ===================================================== */
+.cita-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.cita-status.proxima {
+    background: rgba(52, 152, 219, 0.15);
+    color: #2980b9;
+}
+
+.cita-status.hoy {
+    background: rgba(39, 174, 96, 0.15);
+    color: #27ae60;
+}
+
+.cita-status.pasada {
+    background: rgba(127, 140, 141, 0.15);
+    color: #7f8c8d;
+}
+
+.cita-status.en-curso {
+    background: rgba(255, 79, 129, 0.15);
+    color: #ff4f81;
+}
+
+/* Action buttons in tables */
+.table-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.table-btn {
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: none;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.table-btn:hover {
+    transform: translateY(-1px);
+}
+
+.table-btn.btn-view {
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    color: white;
+}
+
+.table-btn.btn-diagnose {
+    background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+    color: white;
+}
+
+/* =====================================================
+   EMPTY STATE
+   ===================================================== */
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: #888;
+    font-style: italic;
+}
+
+.empty-state i {
+    font-size: 3rem;
+    color: #ddd;
+    margin-bottom: 16px;
+    display: block;
+}
+
+/* =====================================================
+   MODAL PARA VER PACIENTE
+   ===================================================== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.modal-card {
+    background: white;
+    border-radius: 20px;
+    max-width: 500px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: modalIn 0.3s ease-out;
+}
+
+@keyframes modalIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 36px;
+    height: 36px;
+    background: rgba(0, 0, 0, 0.1);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    color: #666;
+    transition: background 0.3s;
+    z-index: 10;
+}
+
+.modal-close:hover {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.modal-hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 32px 28px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border-radius: 20px 20px 0 0;
+}
+
+.hero-avatar {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.hero-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-avatar i {
+    font-size: 2.2rem;
+    color: white;
+}
+
+.hero-text {
+    color: white;
+}
+
+.hero-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.hero-subtitle {
+    font-size: 0.95rem;
+    opacity: 0.9;
+}
+
+.hero-subtitle i {
+    margin-right: 6px;
+}
+
+.modal-content {
+    padding: 28px;
+}
+
+.paciente-detail-list {
+    list-style: none;
+}
+
+.paciente-detail-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.paciente-detail-list li:last-child {
+    border-bottom: none;
+}
+
+.paciente-detail-list li i {
+    width: 36px;
+    height: 36px;
+    background: rgba(102, 126, 234, 0.1);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #667eea;
+    flex-shrink: 0;
+}
+
+.paciente-detail-list li div {
+    flex: 1;
+}
+
+.paciente-detail-list li strong {
+    display: block;
+    font-size: 0.8rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+}
+
+.paciente-detail-list li span {
+    font-size: 1rem;
+    color: #333;
+    font-weight: 500;
+}
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
+@media (max-width: 768px) {
+    .doctor-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .branding {
+        flex-direction: column;
+    }
+
+    .header-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .doctor-code,
+    .header-link {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .cards-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tabs-header {
+        flex-direction: column;
+    }
+
+    .tab-btn {
+        border-radius: 0;
+    }
+}

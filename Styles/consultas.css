@@ -350,7 +350,9 @@ tbody tr td[colspan] {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
 }
 
-.back-btn:hover::before {}
+.back-btn:hover::before {
+    transform: translateX(-6px);
+}
 
 .back-btn:hover::after {
     width: 300px;
@@ -705,5 +707,56 @@ tbody tr td[colspan] {
     .back-btn {
         width: 100%;
         justify-content: center;
+    }
+}
+
+/* ========== BOTONES DE ACCIONES EN TABLAS ========== */
+.actions-cell {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    flex-wrap: nowrap;
+}
+
+.btn-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    color: white;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-size: 0.85rem;
+}
+
+.btn-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn-action.btn-view {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+}
+
+.btn-action.btn-edit {
+    background: linear-gradient(135deg, #f39c12, #d68910);
+}
+
+.btn-action.btn-delete {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+}
+
+@media (max-width: 768px) {
+    .actions-cell {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .btn-action {
+        width: 28px;
+        height: 28px;
+        font-size: 0.75rem;
     }
 }

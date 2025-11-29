@@ -22,10 +22,6 @@ $query_doctores = "SELECT COUNT(*) as total FROM doctor";
 $result_doctores = pg_query($conexion, $query_doctores);
 $total_doctores = pg_fetch_assoc($result_doctores)['total'];
 
-$query_pacientes = "SELECT COUNT(*) as total FROM paciente";
-$result_pacientes = pg_query($conexion, $query_pacientes);
-$total_pacientes = pg_fetch_assoc($result_pacientes)['total'];
-
 pg_close($conexion);
 
 ?>
@@ -109,84 +105,8 @@ pg_close($conexion);
           </a>
         </div>
       </div>
-
-      <!-- Menú Pacientes -->
-      <div class="menu-section pacientes">
-        <div class="menu-header">
-          <div class="menu-icon">
-            <i class="fas fa-procedures"></i>
-          </div>
-          <h2>Pacientes</h2>
-        </div>
-        <div class="menu-options">
-          <a href="Insertar/insertar_paciente.php" class="menu-link">
-            <i class="fas fa-user-plus"></i>
-            <span>Registrar Nuevo Paciente</span>
-          </a>
-          <a href="Consultar/consultar_pacientes.php" class="menu-link">
-            <i class="fas fa-list"></i>
-            <span>Ver Lista de Pacientes</span>
-          </a>
-        </div>
-      </div>
     </div>
 
-    <!-- Menú Citas -->
-    <div class="menu-grid">
-      <div class="menu-section citas">
-        <div class="menu-header">
-          <div class="menu-icon">
-            <i class="fas fa-calendar-check"></i>
-          </div>
-          <h2>Citas Médicas</h2>
-        </div>
-        <div class="menu-options">
-          <a href="Insertar/insertar_cita.php" class="menu-link">
-            <i class="fas fa-calendar-plus"></i>
-            <span>Agendar Nueva Cita</span>
-          </a>
-          <a href="Consultar/consultar_citas.php" class="menu-link">
-            <i class="fas fa-list"></i>
-            <span>Ver Registro de Citas</span>
-          </a>
-          <a class="menu-link" href="Consultar/disponibilidad.php">
-            <i class="fas fa-calendar-check"></i> Disponibilidad de Citas
-          </a>
-        </div>
-      </div>
-      <div class="menu-section medicamento">
-            <div class="menu-header">
-                <div class="menu-icon"><i class="fas fa-pills"></i></div>
-                <h2>Medicamentos</h2>
-            </div>
-
-            <div class="menu-options">
-                <a class="menu-link" href="Insertar/insertar_medicamento.php">
-                    <i class="fas fa-plus"></i> Registrar Nuevo Medicamento
-                </a>
-
-                <a class="menu-link" href="Consultar/consultar_medicamento.php">
-                    <i class="fas fa-list"></i> Ver Inventario de Medicamentos
-                </a>
-            </div>
-        </div>
-      <div class="menu-section consultas">
-        <div class="menu-header">
-          <div class="menu-icon"><i class="fas fa-file-medical"></i></div>
-          <h2>Consultas</h2>
-        </div>
-        <div class="menu-options">
-          <!-- Cambiar a Citas próximas -->
-          <a class="menu-link" href="consultas_proximas.php">
-            <i class="fas fa-calendar-day"></i> Citas próximas
-          </a>
-          <!-- Mantener Consultas anteriores -->
-          <a class="menu-link" href="Consultar/consultar_diagnosticos.php">
-            <i class="fas fa-history"></i> Consultas anteriores
-          </a>
-        </div>
-      </div>
-    </div>
     <!-- Tarjetas de estadísticas -->
     <div class="stats-grid">
       <div class="stat-card">
@@ -198,11 +118,6 @@ pg_close($conexion);
         <i class="fas fa-user-md stat-icon"></i>
         <h3><?php echo $total_doctores; ?></h3>
         <p>Doctores Activos</p>
-      </div>
-      <div class="stat-card">
-        <i class="fas fa-procedures stat-icon"></i>
-        <h3><?php echo $total_pacientes; ?></h3>
-        <p>Pacientes Registrados</p>
       </div>
     </div>
    </div>

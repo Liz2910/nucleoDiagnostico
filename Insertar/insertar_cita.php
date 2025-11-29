@@ -119,7 +119,7 @@ $resultado_doctores = pg_query($conexion, $query_doctores);
             </div>
             <small class="form-help">
               <i class="fas fa-info-circle"></i>
-              La fecha debe ser actual o futura
+              Solo Lunes a Viernes
             </small>
           </div>
 
@@ -132,11 +132,24 @@ $resultado_doctores = pg_query($conexion, $query_doctores);
             </label>
             <div class="input-wrapper">
               <i class="fas fa-clock input-icon"></i>
-              <input type="time" name="hora" class="form-control" required>
+              <select name="hora" class="form-control" required>
+                <option value="">Seleccione hora...</option>
+                <option value="09:00">09:00</option>
+                <option value="10:00">10:00</option>
+                <option value="11:00">11:00</option>
+                <option value="12:00">12:00</option>
+                <option value="13:00">13:00</option>
+                <option value="14:00">14:00</option>
+                <option value="15:00">15:00</option>
+                <option value="16:00">16:00</option>
+                <option value="17:00">17:00</option>
+                <option value="18:00">18:00</option>
+                <option value="19:00">19:00</option>
+              </select>
             </div>
             <small class="form-help">
               <i class="fas fa-info-circle"></i>
-              Cada cita dura 1 hora. Horario: 8:00 AM - 8:00 PM
+              Horario: 9:00 AM - 8:00 PM (intervalos de 1 hora)
             </small>
           </div>
         </div>
@@ -155,6 +168,18 @@ $resultado_doctores = pg_query($conexion, $query_doctores);
       </form>
     </div>
   </div>
+
+  <script>
+  // Validar que la fecha sea Lunes-Viernes
+  document.querySelector('input[name="fecha"]').addEventListener('change', function() {
+    const fecha = new Date(this.value + 'T12:00:00');
+    const dia = fecha.getDay();
+    if (dia === 0 || dia === 6) {
+      alert('Solo se pueden agendar citas de Lunes a Viernes.');
+      this.value = '';
+    }
+  });
+  </script>
 
   <?php
   pg_close($conexion);
