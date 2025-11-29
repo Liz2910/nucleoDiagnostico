@@ -7,44 +7,50 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['codigo'])) {
 
 include("../conecta.php");
 
-$paciente = $_POST['id_paciente'];
-$doctor   = $_POST['id_doctor'];
-$fecha    = $_POST['fecha'];
-$hora     = $_POST['hora'];
+$id_paciente_reg = null;
+$id_doctor_reg = null;
+$fecha_reg = '';
+$hora_reg = '';
+
+$paciente = isset($_POST['id_paciente']) ? intval($_POST['id_paciente']) : 0;
+$doctor   = isset($_POST['id_doctor']) ? intval($_POST['id_doctor']) : 0;
+$fecha    = $_POST['fecha'] ?? '';
+$hora     = $_POST['hora'] ?? '';
+
+if ($paciente <= 0 || $doctor <= 0 || empty($fecha) || empty($hora)) {
+    $tipo = "error";
+    $titulo = "Datos incompletos";
+    $msg = "Selecciona paciente, doctor, fecha y hora antes de registrar.";
+
+    include("../resultado_insertar.php");
+    exit();
+}
 
 // Validar duplicado
-$check = pg_query($conexion, "
-    SELECT 1 FROM citas 
-    WHERE id_doctor = $doctor 
-      AND fecha = '$fecha'
-      AND hora = '$hora'
-    LIMIT 1
-");
+$check = pg_query_params(
+    $conexion,
+    "SELECT 1 FROM citas WHERE id_doctor = $1 AND fecha = $2 AND hora = $3 LIMIT 1",
+    [$doctor, $fecha, $hora]
+);
 
 if (pg_num_rows($check) > 0) {
     $tipo = "warning";
     $titulo = "Horario No Disponible";
     $msg = "El doctor ya tiene una cita en ese horario.";
 
-    include("resultado_insertar.php");
+    include("../resultado_insertar.php");
     exit();
 }
 
 // Insertar cita
-$query = "
-INSERT INTO citas (id_paciente, id_doctor, fecha, hora) 
-VALUES ($paciente, $doctor, '$fecha', '$hora')
-";
-
-$resultado = pg_query($conexion, $query);
-
-// --- VARIABLES para usar en resultado_insertar.php ---
-$id_paciente_reg = $paciente;
-$id_doctor_reg   = $doctor;
-$fecha_reg       = $fecha;
-$hora_reg        = $hora;
+$query = "INSERT INTO citas (id_paciente, id_doctor, fecha, hora) VALUES ($1, $2, $3, $4)";
+$resultado = pg_query_params($conexion, $query, [$paciente, $doctor, $fecha, $hora]);
 
 if ($resultado) {
+    $id_paciente_reg = $paciente;
+    $id_doctor_reg   = $doctor;
+    $fecha_reg       = $fecha;
+    $hora_reg        = $hora;
 
     // Viene desde disponibilidad (botón de horarios)
     if (isset($_POST['desde_disponibilidad'])) {
@@ -53,7 +59,7 @@ if ($resultado) {
         $titulo = "Cita Registrada Correctamente";
         $msg = "La cita fue creada exitosamente.";
 
-        include("resultado_insertar.php");
+        include("../resultado_insertar.php");
         exit();
     }
 
@@ -62,7 +68,7 @@ if ($resultado) {
     $titulo = "Cita Registrada Correctamente";
     $msg = "La cita fue creada exitosamente.";
 
-    include("resultado_insertar.php");
+    include("../resultado_insertar.php");
     exit();
 }
 
@@ -71,7 +77,5 @@ $tipo = "error";
 $titulo = "Error al Registrar";
 $msg = "No fue posible registrar la cita.";
 
-include("resultado_insertar.php");
+include("../resultado_insertar.php");
 exit();
-
-?>

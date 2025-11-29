@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Nucleo Diagnóstico</title>
+    <title>Login - La salud es primero</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="Styles/index.css">
@@ -15,8 +15,8 @@
         <div class="logo-icon">
           <i class="fas fa-hospital-user"></i>
         </div>
-        <h2>Nucleo Diagnóstico</h2>
-        <p class="subtitle">Bienvenido al sistema de gestión</p>
+        <h2>La salud es primero</h2>
+        <p class="subtitle">Portal único para personal médico</p>
       </div>
 
       <!-- Alerta de error -->
@@ -32,7 +32,7 @@
       </div>
 
       <!-- FORMULARIO -->
-      <form action="./Actions/validate_login.php" method="post" id="loginForm" novalidate>
+      <form action="Actions/validate_login.php" method="post" id="loginForm" novalidate>
         <div class="form-group">
           <label class="form-label">
             <i class="fas fa-id-badge"></i>

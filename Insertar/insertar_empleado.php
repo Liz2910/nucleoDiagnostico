@@ -6,14 +6,14 @@
     <title>Registrar Empleado - Nucleo Diagnóstico</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="Styles/form.css">
+    <link rel="stylesheet" href="../Styles/form.css">
 </head>
-<body>
+<body class="theme-empleados">
 <?php
 // Proteger la página - verificar sesión
 session_start();
 if (!isset($_SESSION['usuario']) || !isset($_SESSION['codigo'])) {
-    header("Location: index.php");
+    header("Location: ../index.php");
     exit();
 }
 ?>
@@ -37,7 +37,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['codigo'])) {
                 <p>¡Empleado registrado exitosamente!</p>
             </div>
 
-            <form action="Actions/insertar_empleado_action.php" method="post" id="empleadoForm">
+            <form action="../Actions/insertar_empleado_action.php" method="post" id="empleadoForm">
                 <div class="form-grid">
                     <!-- Nombre -->
                     <div class="form-group full-width">
@@ -197,7 +197,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['codigo'])) {
                         <i class="fas fa-save"></i>
                         <span>Guardar Empleado</span>
                     </button>
-                    <a href="menu.php" class="btn btn-secondary">
+                    <a href="../menu.php" class="btn btn-secondary">
                         <i class="fas fa-arrow-left"></i>
                         <span>Volver al Menú</span>
                     </a>

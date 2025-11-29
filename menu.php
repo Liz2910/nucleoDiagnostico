@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['usuario']) || !isset($_SESSION['codigo'])) {
+if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'admin' || !isset($_SESSION['usuario'], $_SESSION['codigo'])) {
     header("Location: index.php");
     exit();
 }
@@ -34,9 +34,9 @@ pg_close($conexion);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menú Administrador - Nucleo Diagnóstico</title>
+    <title>Menú Administrador - La salud es primero</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="Styles/menu.css">
+    <link rel="stylesheet" href="Styles/men.css">
 </head>
 <body>
   <!-- Header superior -->
@@ -79,11 +79,11 @@ pg_close($conexion);
           <h2>Empleados</h2>
         </div>
         <div class="menu-options">
-          <a href="insertar_empleado.php" class="menu-link">
+          <a href="Insertar/insertar_empleado.php" class="menu-link">
             <i class="fas fa-user-plus"></i>
             <span>Registrar Nuevo Empleado</span>
           </a>
-          <a href="consultar_empleados.php" class="menu-link">
+          <a href="Consultar/consultar_empleados.php" class="menu-link">
             <i class="fas fa-list"></i>
             <span>Ver Lista de Empleados</span>
           </a>
@@ -99,11 +99,11 @@ pg_close($conexion);
           <h2>Doctores</h2>
         </div>
         <div class="menu-options">
-          <a href="insertar_doctor.php" class="menu-link">
+          <a href="Insertar/insertar_doctor.php" class="menu-link">
             <i class="fas fa-user-plus"></i>
             <span>Registrar Nuevo Doctor</span>
           </a>
-          <a href="consultar_doctores.php" class="menu-link">
+          <a href="Consultar/consultar_doctores.php" class="menu-link">
             <i class="fas fa-list"></i>
             <span>Ver Lista de Doctores</span>
           </a>
@@ -119,11 +119,11 @@ pg_close($conexion);
           <h2>Pacientes</h2>
         </div>
         <div class="menu-options">
-          <a href="insertar_paciente.php" class="menu-link">
+          <a href="Insertar/insertar_paciente.php" class="menu-link">
             <i class="fas fa-user-plus"></i>
             <span>Registrar Nuevo Paciente</span>
           </a>
-          <a href="consultar_pacientes.php" class="menu-link">
+          <a href="Consultar/consultar_pacientes.php" class="menu-link">
             <i class="fas fa-list"></i>
             <span>Ver Lista de Pacientes</span>
           </a>
@@ -141,15 +141,15 @@ pg_close($conexion);
           <h2>Citas Médicas</h2>
         </div>
         <div class="menu-options">
-          <a href="insertar_cita.php" class="menu-link">
+          <a href="Insertar/insertar_cita.php" class="menu-link">
             <i class="fas fa-calendar-plus"></i>
             <span>Agendar Nueva Cita</span>
           </a>
-          <a href="consultar_citas.php" class="menu-link">
+          <a href="Consultar/consultar_citas.php" class="menu-link">
             <i class="fas fa-list"></i>
             <span>Ver Registro de Citas</span>
           </a>
-          <a class="menu-link" href="disponibilidad.php">
+          <a class="menu-link" href="Consultar/disponibilidad.php">
             <i class="fas fa-calendar-check"></i> Disponibilidad de Citas
           </a>
         </div>
@@ -161,18 +161,33 @@ pg_close($conexion);
             </div>
 
             <div class="menu-options">
-                <a class="menu-link" href="insertar_medicamento.php">
+                <a class="menu-link" href="Insertar/insertar_medicamento.php">
                     <i class="fas fa-plus"></i> Registrar Nuevo Medicamento
                 </a>
 
-                <a class="menu-link" href="consultar_medicamento.php">
+                <a class="menu-link" href="Consultar/consultar_medicamento.php">
                     <i class="fas fa-list"></i> Ver Inventario de Medicamentos
                 </a>
             </div>
         </div>
+      <div class="menu-section consultas">
+        <div class="menu-header">
+          <div class="menu-icon"><i class="fas fa-file-medical"></i></div>
+          <h2>Consultas</h2>
+        </div>
+        <div class="menu-options">
+          <!-- Cambiar a Citas próximas -->
+          <a class="menu-link" href="consultas_proximas.php">
+            <i class="fas fa-calendar-day"></i> Citas próximas
+          </a>
+          <!-- Mantener Consultas anteriores -->
+          <a class="menu-link" href="Consultar/consultar_diagnosticos.php">
+            <i class="fas fa-history"></i> Consultas anteriores
+          </a>
+        </div>
+      </div>
     </div>
-
-    <!-- Tarjetas de estadísticas con consultas dinámicas -->
+    <!-- Tarjetas de estadísticas -->
     <div class="stats-grid">
       <div class="stat-card">
         <i class="fas fa-users stat-icon"></i>
@@ -190,6 +205,6 @@ pg_close($conexion);
         <p>Pacientes Registrados</p>
       </div>
     </div>
-  </div>
-</body>
-</html>
+   </div>
+ </body>
+ </html>

@@ -2,11 +2,11 @@
 // Proteger la página - verificar sesión
 session_start();
 if (!isset($_SESSION['usuario']) || !isset($_SESSION['codigo'])) {
-    header("Location: index.php");
+    header("Location: ../index.php");
     exit();
 }
 
-include("conecta.php");
+include("../conecta.php");
 $resultado = pg_query($conexion, "SELECT codigo, nombre, via_adm, presentacion, fecha_cad FROM medicamento ORDER BY codigo ASC");
 ?>
 <!DOCTYPE html>
@@ -17,9 +17,9 @@ $resultado = pg_query($conexion, "SELECT codigo, nombre, via_adm, presentacion, 
   <title>Lista de Pacientes - Nucleo Diagnóstico</title>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="Styles/cons.css">
+  <link rel="stylesheet" href="../Styles/consultas.css">
 </head>
-<body>
+<body class="theme-medicamentos">
   <div class="container">
     <h2>Inventario de medicamentos</h2>
 
@@ -56,7 +56,7 @@ $resultado = pg_query($conexion, "SELECT codigo, nombre, via_adm, presentacion, 
     </div>
 
     <div class="btn-container">
-      <a href="menu.php" class="back-btn">
+      <a href="../menu.php" class="back-btn">
         <span>Volver al Menú</span>
       </a>
     </div>

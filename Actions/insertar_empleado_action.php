@@ -31,7 +31,7 @@ $resultado = pg_query($conexion, $query);
   <link rel="stylesheet" href="../Styles/form.css">
   <link rel="stylesheet" href="../Styles/resultado.css">
 </head>
-<body>
+<body class="theme-empleados">
   <div class="container result-container">
     <div class="form-card result-card">
       <?php
@@ -62,7 +62,7 @@ $resultado = pg_query($conexion, $query);
       ?>
       
       <div class="button-group">
-        <a href="../insertar_empleado.php" class="btn btn-primary">
+        <a href="../Insertar/insertar_empleado.php" class="btn btn-primary">
           <i class="fas fa-plus"></i>
           <span>Registrar Otro Empleado</span>
         </a>

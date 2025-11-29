@@ -1,11 +1,11 @@
 <?php
 session_start();
 if (!isset($_SESSION['usuario']) || !isset($_SESSION['codigo'])) {
-    header("Location: index.php");
+    header("Location: ../index.php");
     exit();
 }
 
-include("conecta.php");
+include("../conecta.php");
 
 // Obtener doctor y fecha seleccionados
 $doctor = isset($_GET['doctor']) ? intval($_GET['doctor']) : 0;
@@ -46,7 +46,7 @@ $pacientes = pg_query($conexion, "SELECT codigo, nombre FROM paciente ORDER BY n
     <meta charset="UTF-8">
     <title>Disponibilidad de Citas</title>
 
-    <link rel="stylesheet" href="Styles/dispo.css">
+    <link rel="stylesheet" href="../Styles/dispo.css">
     <link rel="stylesheet" 
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -118,7 +118,7 @@ $pacientes = pg_query($conexion, "SELECT codigo, nombre FROM paciente ORDER BY n
                     </div>
 
                 <?php else: ?>
-                    <form action="Actions/insertar_cita_action.php" method="POST" class="slot-form" onsubmit="return validarPaciente()">
+                    <form action="../Actions/insertar_cita_action.php" method="POST" class="slot-form" onsubmit="return validarPaciente()">
                         <input type="hidden" name="desde_disponibilidad" value="1">
                         <input type="hidden" name="id_doctor" value="<?php echo $doctor; ?>">
                         <input type="hidden" name="fecha" value="<?php echo $fecha; ?>">
@@ -140,7 +140,7 @@ $pacientes = pg_query($conexion, "SELECT codigo, nombre FROM paciente ORDER BY n
     <?php endif; ?>
 
     <div class="back-container">
-        <a href="menu.php" class="back-btn">
+        <a href="../menu.php" class="back-btn">
             <i class="fas fa-arrow-left"></i> Volver al Menú
         </a>
     </div>

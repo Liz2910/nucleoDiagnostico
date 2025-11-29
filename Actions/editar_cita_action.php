@@ -13,53 +13,52 @@ $id_doctor = intval($_POST['id_doctor']);
 $fecha = $_POST['fecha'];
 $hora = $_POST['hora'];
 
-$hoy = date("Y-m-d");
+date_default_timezone_set('America/Mexico_City');
 
-// Validar fecha pasada
-if (strtotime($fecha) < strtotime($hoy)) {
-    $tipo = "warning";
-    $titulo = "No se puede actualizar";
-    $msg = "La fecha ingresada ya pasó.";
-
-    include("resultado_editar.php");
-    exit();
+// Verificar cita existente
+$orig = pg_query_params($conexion, "SELECT fecha, hora FROM citas WHERE id_cita = $1", [$id_cita]);
+if (!$orig || pg_num_rows($orig) === 0) {
+    $tipo="error"; $titulo="No existe"; $msg="La cita no fue encontrada.";
+    include("../resultado_editar.php"); exit();
+}
+$origRow = pg_fetch_assoc($orig);
+$origInicio = strtotime($origRow['fecha'].' '.substr($origRow['hora'],0,5).':00');
+$origFin    = $origInicio + 3600;
+if (time() >= $origFin) {
+    $tipo="warning"; $titulo="Cita finalizada"; $msg="La cita original ya terminó y no puede editarse.";
+    include("../resultado_editar.php"); exit();
 }
 
-// Validar disponibilidad
-$check = "
-    SELECT 1 FROM citas
-    WHERE id_doctor = $id_doctor
-      AND fecha = '$fecha'
-      AND hora = '$hora'
-      AND id_cita <> $id_cita
-    LIMIT 1
-";
-
-$exist = pg_query($conexion, $check);
-
-if ($exist && pg_num_rows($exist) > 0) {
-    $tipo = "warning";
-    $titulo = "Horario no disponible";
-    $msg = "El doctor ya tiene una cita en ese horario.";
-
-    include("resultado_editar.php");
-    exit();
+// Validar nueva fecha/hora
+$horaNormalizada = substr($hora,0,5);
+$nuevaInicio = strtotime($fecha.' '.$horaNormalizada.':00');
+$nuevoFin    = $nuevaInicio + 3600;
+if ($nuevoFin <= time()) {
+    $tipo="warning"; $titulo="Fecha/Hora inválidas"; $msg="La nueva programación ya está en pasado.";
+    include("../resultado_editar.php"); exit();
 }
 
-$query = "
-    UPDATE citas
-    SET id_paciente = $id_paciente,
-        id_doctor = $id_doctor,
-        fecha = '$fecha',
-        hora = '$hora'
-    WHERE id_cita = $id_cita
-";
+// Disponibilidad
+$exist = pg_query_params(
+  $conexion,
+  "SELECT 1 FROM citas WHERE id_doctor=$1 AND fecha=$2 AND hora=$3 AND id_cita<>$4 LIMIT 1",
+  [$id_doctor, $fecha, $hora, $id_cita]
+);
+if ($exist && pg_num_rows($exist)>0) {
+    $tipo="warning"; $titulo="Horario ocupado"; $msg="El doctor tiene otra cita en ese horario.";
+    include("../resultado_editar.php"); exit();
+}
 
-$ok = pg_query($conexion, $query);
+// Update
+$ok = pg_query_params(
+  $conexion,
+  "UPDATE citas SET id_paciente=$1, id_doctor=$2, fecha=$3, hora=$4 WHERE id_cita=$5",
+  [$id_paciente,$id_doctor,$fecha,$hora,$id_cita]
+);
 
-$tipo = $ok ? "success" : "error";
+$tipo   = $ok ? "success" : "error";
 $titulo = $ok ? "Cita actualizada correctamente" : "Error al actualizar";
-$msg = $ok ? "La cita se modificó exitosamente." : "Ocurrió un problema.";
+$msg    = $ok ? "La cita se modificó exitosamente." : "Ocurrió un problema.";
 
 // Pasar datos a la vista
 $id_cita = $id_cita;
@@ -68,6 +67,6 @@ $id_doctor = $id_doctor;
 $fecha = $fecha;
 $hora = $hora;
 
-include("resultado_editar.php");
+include("../resultado_editar.php");
 exit();
 ?>

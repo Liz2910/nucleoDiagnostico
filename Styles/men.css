@@ -234,6 +234,27 @@ body {
     background: linear-gradient(135deg, #b69a59 0%, #ad7f44 100%);
 }
 
+.menu-section.consultas .menu-icon {
+    background: linear-gradient(135deg, #ff4f81 0%, #ff7aa8 100%);
+}
+
+/* Acentos rosa para la tarjeta de Consultas */
+.menu-section.consultas .menu-header {
+    border-bottom-color: #e0e0e0;
+    /* sutil separador en gris */
+}
+
+.menu-section.consultas .menu-header h2 {
+    color: #ff4f81;
+}
+
+.menu-section.consultas .menu-link:hover {
+    background: #ff4f81;
+    color: white;
+    transform: translateX(8px);
+    border-color: #ff7aa8;
+}
+
 .menu-header h2 {
     color: #333;
     font-size: 1.5rem;
@@ -299,6 +320,38 @@ body {
     transform: translateX(8px);
     border-color: #ad7e44;
 }
+
+.menu-section.consultas .menu-link:hover {
+    background: #ff4f81;
+    color: white;
+    transform: translateX(8px);
+    border-color: #ff7aa8;
+}
+
+.consultas-panel-placeholder {
+    margin-top: 40px;
+    padding: 30px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+    animation: fadeInUp 0.6s ease-out;
+    border-left: 6px solid #ff4f81;
+}
+
+.consultas-panel-placeholder h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #ff4f81;
+    margin-bottom: 10px;
+}
+
+.consultas-panel-placeholder p {
+    color: #6c757d;
+    margin-bottom: 6px;
+    line-height: 1.5;
+}
+
 /* Stats cards - Alineadas con el grid de menús */
 .stats-grid {
     display: grid;

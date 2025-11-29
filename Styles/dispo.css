@@ -7,7 +7,10 @@
 
 body {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, rgba(13, 27, 42, 0.95) 0%, rgba(27, 38, 59, 0.95) 50%, rgba(65, 90, 119, 0.90) 100%),
+    background: linear-gradient(135deg,
+            #8e44ad 0%,
+            #9b59b6 50%,
+            #a569bd 100%),
         url('../Assets/fondo-hospital.png');
     background-size: cover;
     background-position: center;
@@ -27,7 +30,7 @@ body {
     padding: 35px 40px;
     border-radius: 24px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.28);
-    animation: fadeInUp 0.5s ease-out;
+    animation: fadeInUp 0.25s ease-out;
 }
 
 @keyframes fadeInUp {
@@ -44,7 +47,7 @@ body {
 
 /* === Header === */
 h1 {
-    color: #004a98;
+    color: #6c2c8d;
     text-align: center;
     font-size: 2.3rem;
     margin-bottom: 10px;
@@ -101,9 +104,9 @@ h1 i {
 .select-field:focus,
 .date-field:focus,
 .patient-select:focus {
-    border-color: #3498db;
-    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.25);
-    background: #f8fbff;
+    border-color: #9b59b6;
+    box-shadow: 0 0 0 3px rgba(155, 89, 182, 0.25);
+    background: #faf8fc;
 }
 
 .btn-search {
@@ -111,7 +114,7 @@ h1 i {
     padding: 13px 20px;
     border-radius: 12px;
     border: none;
-    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
     color: white;
     font-weight: 600;
     font-size: 0.95rem;
@@ -120,13 +123,13 @@ h1 i {
     justify-content: center;
     align-items: center;
     gap: 8px;
-    box-shadow: 0 6px 18px rgba(52, 152, 219, 0.45);
+    box-shadow: 0 6px 18px rgba(155, 89, 182, 0.45);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .btn-search:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 26px rgba(52, 152, 219, 0.6);
+    box-shadow: 0 10px 26px rgba(155, 89, 182, 0.6);
 }
 
 /* === Selector de Paciente === */
@@ -219,7 +222,7 @@ h1 i {
     margin-top: 4px;
 }
 
-/* Libre (verde) */
+/* Libre (verde) - Mantener como señalización */
 .slot-free {
     background: linear-gradient(135deg, #e8f8f0 0%, #d5f3e4 100%);
     border-color: #27ae60;
@@ -240,7 +243,7 @@ h1 i {
     box-shadow: 0 4px 12px rgba(39, 174, 96, 0.35);
 }
 
-/* Ocupado (rojo) */
+/* Ocupado (rojo) - Mantener como señalización */
 .slot-busy {
     background: linear-gradient(135deg, #fdecea 0%, #fadbd8 100%);
     border-color: #e74c3c;
@@ -254,7 +257,7 @@ h1 i {
 }
 
 .back-btn {
-    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
     color: white;
     padding: 12px 28px;
     border-radius: 12px;
@@ -264,13 +267,13 @@ h1 i {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    box-shadow: 0 6px 18px rgba(52, 152, 219, 0.45);
+    box-shadow: 0 6px 18px rgba(155, 89, 182, 0.45);
     transition: 0.2s ease;
 }
 
 .back-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 26px rgba(52, 152, 219, 0.6);
+    box-shadow: 0 10px 26px rgba(155, 89, 182, 0.6);
 }
 
 /* === Responsivo === */

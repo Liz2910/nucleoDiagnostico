@@ -31,7 +31,7 @@ $error_message = $resultado ? "" : pg_last_error($conexion);
   <link rel="stylesheet" href="../Styles/form.css">
   <link rel="stylesheet" href="../Styles/resultado.css">
 </head>
-<body>
+<body class="theme-pacientes">
   <div class="container result-container">
     <div class="form-card result-card">
       <?php
@@ -63,7 +63,7 @@ $error_message = $resultado ? "" : pg_last_error($conexion);
       ?>
       
       <div class="button-group">
-        <a href="../insertar_paciente.php" class="btn btn-primary" style="background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%); box-shadow: 0 4px 16px rgba(46, 204, 113, 0.3);">
+        <a href="../Insertar/insertar_paciente.php" class="btn btn-primary" style="background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%); box-shadow: 0 4px 16px rgba(46, 204, 113, 0.3);">
           <i class="fas fa-plus"></i>
           <span>Registrar Otro Paciente</span>
         </a>

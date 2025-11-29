@@ -10,7 +10,7 @@ include("conecta.php");
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 if ($id <= 0) {
-    header("Location: consultar_citas.php?error=idinvalido");
+    header("Location: Consultar/consultar_citas.php?error=idinvalido");
     exit();
 }
 
@@ -20,43 +20,47 @@ $result = pg_query($conexion, $query);
 $cita = pg_fetch_assoc($result);
 
 if (!$cita) {
-    header("Location: consultar_citas.php?error=noexiste");
+    header("Location: Consultar/consultar_citas.php?error=noexiste");
     exit();
 }
 
-$hoy = date("Y-m-d");
+date_default_timezone_set('America/Mexico_City');
 
-// Si la cita ya pasó → pantalla bonita
-if (strtotime($cita['fecha']) < strtotime($hoy)) {
-?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
+$horaCruda = $cita['hora'];
+$horaCita  = substr($horaCruda,0,5);
+$inicioTimestamp = strtotime($cita['fecha'].' '.$horaCita.':00');
+$finTimestamp    = $inicioTimestamp + 3600;
+
+$terminada = time() >= $finTimestamp;
+
+if ($terminada) {
+  ?>
+  <!DOCTYPE html>
+  <html lang="es">
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cita pasada</title>
     <link rel="stylesheet" href="Styles/resultado.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-
-<body class="theme-citas">
-<div class="result-container">
-    <div class="result-card">
+  </head>
+  <body class="theme-citas">
+    <div class="result-container">
+      <div class="result-card">
         <div class="warning-icon"><i class="fas fa-exclamation"></i></div>
-        <h2 class="result-title">Esta cita ya pasó</h2>
-        <p class="result-message">Solo puede eliminarse, no editarse.</p>
-
+        <h2 class="result-title">Esta cita ya terminó</h2>
+        <p class="result-message">No se puede editar porque ya ha concluido.</p>
         <div class="button-group">
-            <a href="consultar_citas.php" class="btn btn-primary">
-                <i class="fas fa-arrow-left"></i> Volver
-            </a>
+          <a href="Consultar/consultar_citas.php" class="btn btn-primary">
+            <i class="fas fa-arrow-left"></i> Volver
+          </a>
         </div>
+      </div>
     </div>
-</div>
-</body>
-</html>
-<?php
-exit();
+  </body>
+  </html>
+  <?php
+  exit();
 }
 
 // Obtener nombre de paciente
@@ -167,7 +171,7 @@ $doctores = pg_query($conexion, "SELECT codigo, nombre FROM doctor ORDER BY nomb
                     <i class="fas fa-save"></i> Guardar Cambios
                 </button>
 
-                <a href="consultar_citas.php" class="btn btn-secondary">
+                <a href="Consultar/consultar_citas.php" class="btn btn-secondary">
                     <i class="fas fa-times"></i> Cancelar
                 </a>
             </div>

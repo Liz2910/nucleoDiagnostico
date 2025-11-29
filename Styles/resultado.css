@@ -20,9 +20,13 @@
     --color-doctores-light: #d16663;
     --color-doctores-lighter: #e88b88;
 
-    --color-empleados: #4a90a4;
-    --color-empleados-light: #5ca9be;
-    --color-empleados-lighter: #7fc3d6;
+    --color-empleados: #2980b9;
+    --color-empleados-light: #3498db;
+    --color-empleados-lighter: #5dade2;
+
+    --color-consultas: #ff4f81;
+    --color-consultas-light: #ff7aa8;
+    --color-consultas-lighter: #ffd1e1;
 
     /* Color por defecto (citas) */
     --color-primary: var(--color-citas);
@@ -61,6 +65,12 @@ body.theme-empleados {
     --color-primary-lighter: var(--color-empleados-lighter);
 }
 
+body.theme-consultas {
+    --color-primary: var(--color-consultas);
+    --color-primary-light: var(--color-consultas-light);
+    --color-primary-lighter: var(--color-consultas-lighter);
+}
+
 /* === Reset general === */
 * {
     margin: 0;
@@ -85,7 +95,7 @@ body {
 .result-container {
     width: 100%;
     max-width: 550px;
-    animation: fadeInUp 0.6s ease-out;
+    animation: fadeInUp 0.3s ease-out;
 }
 
 @keyframes fadeInUp {
@@ -119,7 +129,7 @@ body {
     align-items: center;
     justify-content: center;
     margin-bottom: 25px;
-    animation: scaleIn 0.6s ease-out;
+    animation: scaleIn 0.3s ease-out;
     color: white;
 }
 
@@ -162,7 +172,7 @@ body {
     font-size: 1.8rem;
     font-weight: 700;
     margin-bottom: 12px;
-    animation: fadeIn 0.6s ease-out 0.2s backwards;
+    animation: fadeIn 0.3s ease-out 0.1s backwards;
 }
 
 .result-message {
@@ -171,7 +181,7 @@ body {
     margin-bottom: 30px;
     font-weight: 400;
     line-height: 1.6;
-    animation: fadeIn 0.6s ease-out 0.3s backwards;
+    animation: fadeIn 0.3s ease-out 0.15s backwards;
 }
 
 @keyframes fadeIn {
@@ -186,14 +196,39 @@ body {
 
 /* === Detalles informativos (Info Box) === */
 .info-box {
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    background: rgba(248, 249, 250, 0.5);
     border-left: 5px solid var(--color-primary);
     padding: 25px 28px;
     border-radius: 16px;
     text-align: left;
     margin-bottom: 30px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-    animation: slideInUp 0.6s ease-out 0.4s backwards;
+    animation: slideInUp 0.3s ease-out 0.2s backwards;
+}
+
+/* Variantes de info-box por tema */
+body.theme-citas .info-box {
+    background: linear-gradient(135deg, rgba(155, 89, 182, 0.08) 0%, rgba(142, 68, 173, 0.12) 100%);
+}
+
+body.theme-medicamentos .info-box {
+    background: linear-gradient(135deg, rgba(184, 134, 11, 0.08) 0%, rgba(218, 165, 32, 0.12) 100%);
+}
+
+body.theme-pacientes .info-box {
+    background: linear-gradient(135deg, rgba(39, 174, 96, 0.08) 0%, rgba(46, 204, 113, 0.12) 100%);
+}
+
+body.theme-doctores .info-box {
+    background: linear-gradient(135deg, rgba(192, 80, 77, 0.08) 0%, rgba(209, 102, 99, 0.12) 100%);
+}
+
+body.theme-empleados .info-box {
+    background: linear-gradient(135deg, rgba(74, 144, 164, 0.08) 0%, rgba(92, 169, 190, 0.12) 100%);
+}
+
+body.theme-consultas .info-box {
+    background: linear-gradient(135deg, rgba(255, 79, 129, 0.08) 0%, rgba(255, 122, 168, 0.12) 100%);
 }
 
 @keyframes slideInUp {
@@ -248,7 +283,7 @@ body {
     margin: 25px 0;
     text-align: left;
     box-shadow: 0 3px 10px rgba(255, 193, 7, 0.2);
-    animation: slideInLeft 0.6s ease-out 0.4s backwards;
+    animation: slideInLeft 0.3s ease-out 0.2s backwards;
 }
 
 .error-detail p {
@@ -290,7 +325,7 @@ body {
     margin: 25px 0;
     text-align: left;
     box-shadow: 0 3px 10px rgba(40, 167, 69, 0.2);
-    animation: slideInRight 0.6s ease-out 0.4s backwards;
+    animation: slideInRight 0.3s ease-out 0.2s backwards;
 }
 
 .success-details p {
@@ -349,7 +384,7 @@ body {
     gap: 12px;
     justify-content: center;
     flex-wrap: wrap;
-    animation: fadeIn 0.6s ease-out 0.5s backwards;
+    animation: fadeIn 0.3s ease-out 0.25s backwards;
 }
 
 .btn,
@@ -375,14 +410,14 @@ body {
 .btn-return {
     background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
     color: white;
-    box-shadow: 0 6px 20px rgba(142, 68, 173, 0.4);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
 .btn-primary:hover,
 .btn-return:hover {
     background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary) 100%);
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(142, 68, 173, 0.5);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
 }
 
 .btn-secondary,
@@ -408,8 +443,8 @@ body {
     border-radius: 50%;
     margin: 0 auto;
     margin-top: -20px;
-    box-shadow: 0 6px 20px rgba(142, 68, 173, 0.4);
-    animation: pulse 2s infinite;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    animation: pulse 1s infinite;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -447,12 +482,43 @@ body {
 
 .info-box-purple,
 .info-box-custom {
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    background: rgba(248, 249, 250, 0.5);
     border-left: 5px solid var(--color-primary);
     padding: 18px 22px;
     border-radius: 14px;
     margin-bottom: 35px;
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Variantes por tema */
+body.theme-citas .info-box-purple,
+body.theme-citas .info-box-custom {
+    background: linear-gradient(135deg, rgba(155, 89, 182, 0.08) 0%, rgba(142, 68, 173, 0.12) 100%);
+}
+
+body.theme-medicamentos .info-box-purple,
+body.theme-medicamentos .info-box-custom {
+    background: linear-gradient(135deg, rgba(184, 134, 11, 0.08) 0%, rgba(218, 165, 32, 0.12) 100%);
+}
+
+body.theme-pacientes .info-box-purple,
+body.theme-pacientes .info-box-custom {
+    background: linear-gradient(135deg, rgba(39, 174, 96, 0.08) 0%, rgba(46, 204, 113, 0.12) 100%);
+}
+
+body.theme-doctores .info-box-purple,
+body.theme-doctores .info-box-custom {
+    background: linear-gradient(135deg, rgba(192, 80, 77, 0.08) 0%, rgba(209, 102, 99, 0.12) 100%);
+}
+
+body.theme-empleados .info-box-purple,
+body.theme-empleados .info-box-custom {
+    background: linear-gradient(135deg, rgba(74, 144, 164, 0.08) 0%, rgba(92, 169, 190, 0.12) 100%);
+}
+
+body.theme-consultas .info-box-purple,
+body.theme-consultas .info-box-custom {
+    background: linear-gradient(135deg, rgba(255, 79, 129, 0.08) 0%, rgba(255, 122, 168, 0.12) 100%);
 }
 
 .info-box-purple p,
@@ -490,13 +556,13 @@ body {
     font-weight: 600;
     font-size: 0.95rem;
     transition: all 0.3s ease;
-    box-shadow: 0 6px 20px rgba(142, 68, 173, 0.4);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
     margin-top: 20px;
 }
 
 .back-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(142, 68, 173, 0.5);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
 }
 
 /* === Responsividad === */
@@ -619,4 +685,16 @@ body {
     .result-title {
         font-size: 1.4rem;
     }
+}
+
+/* === Estilos para la lista de medicamentos === */
+.med-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 10px 0 0;
+}
+
+.med-list li {
+    margin-bottom: 6px;
+    color: #2c3e50;
 }

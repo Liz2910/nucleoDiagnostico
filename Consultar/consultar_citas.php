@@ -1,11 +1,12 @@
 <?php
 session_start();
 if (!isset($_SESSION['usuario']) || !isset($_SESSION['codigo'])) {
-    header("Location: index.php");
+    header("Location: ../index.php");
     exit();
 }
 
-include("conecta.php");
+include("../conecta.php");
+date_default_timezone_set('America/Mexico_City'); // <-- Asegura fecha/hora correctas
 
 $hoy = date("Y-m-d");
 
@@ -29,7 +30,7 @@ $resultado = pg_query($conexion, $query);
 <head>
     <meta charset="UTF-8">
     <title>Consultar Citas</title>
-    <link rel="stylesheet" href="Styles/cons.css">
+    <link rel="stylesheet" href="../Styles/consultas.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -50,7 +51,7 @@ $resultado = pg_query($conexion, $query);
     </style>
 </head>
 
-<body>
+<body class="theme-citas">
 
 <div class="container">
 
@@ -75,9 +76,11 @@ $resultado = pg_query($conexion, $query);
                 } elseif (pg_num_rows($resultado) === 0) {
                     echo "<tr><td colspan='6'>No hay citas registradas.</td></tr>";
                 } else {
+                    $now = time();
                     while ($row = pg_fetch_assoc($resultado)) {
 
-                        $esFutura = strtotime($row['fecha']) >= strtotime($hoy);
+                        $inicioTs = strtotime($row['fecha'].' '.substr($row['hora'],0,5).':00');
+                        $finTs    = $inicioTs + 3600; // cada cita dura 1h
 
                         echo "<tr>
                                 <td>{$row['id_cita']}</td>
@@ -87,15 +90,16 @@ $resultado = pg_query($conexion, $query);
                                 <td>{$row['hora']}</td>
                                 <td>";
 
-                        if ($esFutura) {
+                        // Mostrar Editar solo si la cita no ha terminado
+                        if ($now < $finTs) {
                             echo "
-                                <a class='action-btn edit-btn' href='editar_cita.php?id={$row['id_cita']}'>
+                                <a class='action-btn edit-btn' href='../editar_cita.php?id={$row['id_cita']}'>
                                     <i class='fas fa-edit'></i> Editar
                                 </a>";
                         }
 
                         echo "
-                            <a class='action-btn delete-btn' href='Actions/cancelar_cita.php?id={$row['id_cita']}'>
+                            <a class='action-btn delete-btn' href='../Actions/cancelar_cita.php?id={$row['id_cita']}'>
                                 <i class='fas fa-trash'></i> Eliminar
                             </a>
                         </td>
@@ -108,7 +112,7 @@ $resultado = pg_query($conexion, $query);
     </div>
 
     <div class="btn-container">
-        <a href="menu.php" class="back-btn">Volver al menú</a>
+        <a href="../menu.php" class="back-btn">Volver al menú</a>
     </div>
 
 </div>

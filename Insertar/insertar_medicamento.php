@@ -13,9 +13,9 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['codigo'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrar Nuevo Medicamento - Nucleo Diagnóstico</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="Styles/form.css">
+    <link rel="stylesheet" href="../Styles/form.css">
 </head>
-<body>
+<body class="theme-medicamentos">
     <div class="container">
         <div class="form-card">
             <div class="form-header">
@@ -80,10 +80,6 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['codigo'])) {
                             <i class="fas fa-calendar-times input-icon"></i>
                             <input type="date" name="fecha_cad" class="form-control" required>
                         </div>
-                        <small class="form-help">
-                            <i class="fas fa-info-circle"></i>
-                            Fecha límite de uso (AAAA-MM-DD)
-                        </small>
                     </div>
 
                     </div>
@@ -93,7 +89,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['codigo'])) {
                         <i class="fas fa-save"></i>
                         <span>Guardar Medicamento</span>
                     </button>
-                    <a href="menu.php" class="btn btn-secondary">
+                    <a href="../menu.php" class="btn btn-secondary">
                         <i class="fas fa-arrow-left"></i>
                         <span>Volver al Menú</span>
                     </a>

@@ -1,5 +1,5 @@
 <?php
-include("conecta.php");
+include("../conecta.php");
 
 $query = "SELECT * FROM doctor ORDER BY codigo ASC";
 $resultado = pg_query($conexion, $query);
@@ -10,9 +10,9 @@ $resultado = pg_query($conexion, $query);
 <head>
   <meta charset="UTF-8">
   <title>Consulta General de Doctores</title>
-  <link rel="stylesheet" href="Styles/cons.css">
+  <link rel="stylesheet" href="../Styles/consultas.css">
 </head>
-<body>
+<body class="theme-doctores">
   <div class="container">
     <h2>Consulta General de Doctores</h2>
     <table>
@@ -50,7 +50,7 @@ $resultado = pg_query($conexion, $query);
     </table>
 
     <div class="btn-container">
-      <a href="menu.php" class="back-btn">Volver al menú</a>
+      <a href="../menu.php" class="back-btn">Volver al menú</a>
     </div>
   </div>
 </body>

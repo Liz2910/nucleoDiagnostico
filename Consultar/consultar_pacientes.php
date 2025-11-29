@@ -2,26 +2,26 @@
 // Proteger la página - verificar sesión
 session_start();
 if (!isset($_SESSION['usuario']) || !isset($_SESSION['codigo'])) {
-    header("Location: index.php");
+    header("Location: ../index.php");
     exit();
 }
 
-include("conecta.php");
-$resultado = pg_query($conexion, "SELECT codigo, nombre, direccion, telefono, fecha_nac, sexo, sueldo, turno FROM empleado ORDER BY codigo ASC");
+include("../conecta.php");
+$resultado = pg_query($conexion, "SELECT codigo, nombre, direccion, telefono, fecha_nac, sexo, edad, estatura FROM paciente ORDER BY codigo ASC");
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lista de Empleados - Nucleo Diagnóstico</title>
+  <title>Lista de Pacientes - Nucleo Diagnóstico</title>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="Styles/cons.css">
+  <link rel="stylesheet" href="../Styles/consultas.css">
 </head>
-<body>
+<body class="theme-pacientes">
   <div class="container">
-    <h2>Lista de Empleados Registrados</h2>
+    <h2>Lista de Pacientes Registrados</h2>
 
     <div class="table-wrapper">
       <table>
@@ -33,8 +33,8 @@ $resultado = pg_query($conexion, "SELECT codigo, nombre, direccion, telefono, fe
             <th><i class="fas fa-phone"></i> Teléfono</th>
             <th><i class="fas fa-calendar"></i> Fecha Nac.</th>
             <th><i class="fas fa-venus-mars"></i> Sexo</th>
-            <th><i class="fas fa-dollar-sign"></i> Sueldo</th>
-            <th><i class="fas fa-clock"></i> Turno</th>
+            <th><i class="fas fa-user-clock"></i> Edad</th>
+            <th><i class="fas fa-ruler-vertical"></i> Estatura</th>
           </tr>
         </thead>
         <tbody>
@@ -48,12 +48,12 @@ $resultado = pg_query($conexion, "SELECT codigo, nombre, direccion, telefono, fe
               echo "<td>" . htmlspecialchars($fila['telefono']) . "</td>";
               echo "<td>" . htmlspecialchars($fila['fecha_nac']) . "</td>";
               echo "<td>" . htmlspecialchars($fila['sexo']) . "</td>";
-              echo "<td>$" . number_format($fila['sueldo'], 2) . "</td>";
-              echo "<td>" . htmlspecialchars($fila['turno']) . "</td>";
+              echo "<td>" . htmlspecialchars($fila['edad']) . " años</td>";
+              echo "<td>" . number_format($fila['estatura'], 2) . " m</td>";
               echo "</tr>";
             }
           } else {
-            echo "<tr><td colspan='8'>No hay empleados registrados</td></tr>";
+            echo "<tr><td colspan='8'>No hay pacientes registrados</td></tr>";
           }
           pg_close($conexion);
           ?>
@@ -62,7 +62,7 @@ $resultado = pg_query($conexion, "SELECT codigo, nombre, direccion, telefono, fe
     </div>
 
     <div class="btn-container">
-      <a href="menu.php" class="back-btn">
+      <a href="../menu.php" class="back-btn">
         <span>Volver al Menú</span>
       </a>
     </div>

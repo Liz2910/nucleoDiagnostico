@@ -28,7 +28,7 @@ $error_message = $resultado ? "" : pg_last_error($conexion);
   <link rel="stylesheet" href="../Styles/form.css">
   <link rel="stylesheet" href="../Styles/resultado.css">
 </head>
-<body>
+<body class="theme-medicamentos">
   <div class="container result-container">
     <div class="form-card result-card">
       <?php
@@ -59,7 +59,7 @@ $error_message = $resultado ? "" : pg_last_error($conexion);
       ?>
       
       <div class="button-group">
-        <a href="../insertar_medicamento.php" class="btn btn-primary" style="background: linear-gradient(135deg, #b69a59 0%, #ad7f44 100%); box-shadow: 0 4px 16px rgba(188, 129, 26, 0.3);">
+        <a href="../Insertar/insertar_medicamento.php" class="btn btn-primary" style="background: linear-gradient(135deg, #b69a59 0%, #ad7f44 100%); box-shadow: 0 4px 16px rgba(188, 129, 26, 0.3);">
           <i class="fas fa-plus"></i>
           <span>Registrar Otro Medicamento</span>
         </a>

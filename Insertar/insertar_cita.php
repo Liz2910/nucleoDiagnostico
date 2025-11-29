@@ -2,11 +2,11 @@
 // Proteger la página - verificar sesión
 session_start();
 if (!isset($_SESSION['usuario']) || !isset($_SESSION['codigo'])) {
-    header("Location: index.php");
+    header("Location: ../index.php");
     exit();
 }
 
-include("conecta.php");
+require_once __DIR__ . '/../conecta.php';
 
 // Obtener lista de pacientes
 $query_pacientes = "SELECT codigo, nombre FROM paciente ORDER BY nombre ASC";
@@ -24,9 +24,9 @@ $resultado_doctores = pg_query($conexion, $query_doctores);
   <title>Agendar Nueva Cita - Nucleo Diagnóstico</title>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="Styles/form.css">
+  <link rel="stylesheet" href="../Styles/form.css">
 </head>
-<body>
+<body class="theme-citas">
   <div class="container">
     <div class="form-card">
       <!-- Encabezado del formulario -->
@@ -45,7 +45,7 @@ $resultado_doctores = pg_query($conexion, $query_doctores);
       </div>
 
       <!-- Formulario -->
-      <form action="Actions/insertar_cita_action.php" method="post">
+      <form action="../Actions/insertar_cita_action.php" method="post">
         <div class="form-grid">
           <!-- Paciente -->
           <div class="form-group full-width">
@@ -147,7 +147,7 @@ $resultado_doctores = pg_query($conexion, $query_doctores);
             <i class="fas fa-calendar-plus"></i>
             <span>Agendar Cita</span>
           </button>
-          <a href="menu.php" class="btn btn-secondary">
+          <a href="../menu.php" class="btn btn-secondary">
             <i class="fas fa-arrow-left"></i>
             <span>Volver al Menú</span>
           </a>

@@ -2,7 +2,7 @@
 // Recibe:
 // $tipo, $titulo, $msg, $id_cita, $id_paciente, $id_doctor, $fecha, $hora
 
-include("../conecta.php");
+include("conecta.php");
 
 // Obtener nombre del paciente
 $q1 = pg_query($conexion, "SELECT nombre FROM paciente WHERE codigo = $id_paciente");
@@ -20,7 +20,7 @@ $doctor = pg_fetch_assoc($q2)['nombre'] ?? "Doctor desconocido";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $titulo; ?></title>
 
-    <link rel="stylesheet" href="../Styles/resultado.css">
+    <link rel="stylesheet" href="Styles/resultado.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
@@ -60,11 +60,11 @@ $doctor = pg_fetch_assoc($q2)['nombre'] ?? "Doctor desconocido";
         </div>
 
         <div class="btn-container">
-            <a href="../consultar_citas.php" class="btn-return">
+            <a href="Consultar/consultar_citas.php" class="btn-return">
                 <i class="fas fa-list"></i> Volver a consultar citas
             </a>
 
-            <a href="../menu.php" class="btn-menu">
+            <a href="menu.php" class="btn-menu">
                 <i class="fas fa-home"></i> Volver al menú
             </a>
         </div>
